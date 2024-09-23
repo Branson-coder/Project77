@@ -17,9 +17,9 @@ bool Collider::checkCollision(Collider& other, float push)
     float intersectY = abs(diffY) - (thisHalfSize.y + otherHalfSize.y);
 
     if(intersectX < 0.0f && intersectY< 0.0f ){ //proceed with collision response
-      push = std::min(std::max(push, 0.0f), 0.0f );
-
-      if(intersectX > intersectY){
+      push = std::min(std::max(push, 0.0f), 1.0f );
+      
+      if(intersectX > intersectY){ 
         if(diffX > 0.0f){
             Move(intersectX * (1.0f - push), 0.0f);
             other.Move(-intersectX * push, 0.0f);

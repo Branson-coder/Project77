@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
-#ifndef COLLISION_H
-#define COLLISION_H
+#ifndef COLLIDER_H
+#define COLLIDER_H
 
 class Collider{
 private:
