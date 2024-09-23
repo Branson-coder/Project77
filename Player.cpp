@@ -2,12 +2,12 @@
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime,
                float speed)
-    : animation(texture, imageCount, switchTime) {
+    : animation(texture, imageCount, switchTime)
+{
   this->speed = speed;
   row = 0;
-  faceRight = true;
 
-  body.setSize(sf::Vector2f(150.0f, 170.0f));
+  body.setSize(sf::Vector2f(50.0f, 70.0f));
   body.setOrigin(body.getSize() / 2.0f);
   body.setPosition(206.0f, 206.0f);
   body.setTexture(texture);
@@ -20,35 +20,48 @@ void Player::Update(float deltaTime)
 {
     sf::Vector2f movement(0.0f, 0.0f);
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        movement.x -= speed * deltaTime;
+        isMoving = false;    
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        movement.x += speed * deltaTime;
-    
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        movement.y -= speed * deltaTime;
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        movement.y += speed * deltaTime;
-
-    if (movement.x == 0.0f)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))  // Move Left
     {
+        movement.x -= speed * deltaTime;
+        row = 2;
+        isMoving = true;
+        
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))  // Move Right
+    {
+        movement.x += speed * deltaTime;
+        row = 3;
+        isMoving = true;
+        
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))  // Move Up
+    {
+        movement.y -= speed * deltaTime;
+        row = 1;
+        isMoving = true;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))  // Move Down
+    {
+        movement.y += speed * deltaTime;
         row = 0;
+        isMoving = true;
+    }
+
+    if (isMoving) 
+    {
+        animation.Update(row, deltaTime);
+        body.setTextureRect(animation.uvRect);
+        body.move(movement);
+         
     }
     else
     {
-        row = 1;
-
-        if (movement.x > 0.0f)
-            faceRight = true;
-        else
-            faceRight = false;
+        row = 0;
+        animation.ResetCurrentImage();
+        body.setTextureRect(animation.uvRect); 
     }
-
-    animation.Update(row, deltaTime, faceRight);
-    body.setTextureRect(animation.uvRect);
-    body.move(movement);
     
 }
 

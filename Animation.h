@@ -9,9 +9,11 @@ class Animation
         Animation(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);
         ~Animation();
 
-        void Update(int row, float deltaTime, bool faceRight);
+        void Update(int row, float deltaTime);
 
         sf::IntRect uvRect;
+
+        void ResetCurrentImage();
 
     private:
         sf::Vector2u imageCount;

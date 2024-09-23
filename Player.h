@@ -13,7 +13,6 @@ class Player
         void Draw(sf::RenderWindow &window);
 
         sf::Vector2f GetPosition(){return body.getPosition();}
-      
 
 
     private:
@@ -21,7 +20,7 @@ class Player
      Animation animation;
      unsigned int row;
      float speed;
-     bool faceRight;
+     bool isMoving;
 
 
 };

@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Player.h"
+// g++ AidanMain.cpp Animation.cpp Player.cpp -lsfml-graphics -lsfml-window -lsfml-system
 
 static const float VIEW_HEIGHT = 512.0f;
 
@@ -17,12 +18,9 @@ int main() {
     sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 
     sf::Texture playerTexture;
-    if (!playerTexture.loadFromFile("Player.png")) {
-        std::cerr << "Error loading texture for player!" << std::endl;
-        return -1;
-    }
+    playerTexture.loadFromFile("Player.png");
 
-    Player player(&playerTexture, sf::Vector2u(4, 4), 0.3f, 100.0f);
+    Player player(&playerTexture, sf::Vector2u(4, 4), 0.2f, 100.0f);
 
     sf::Vector2f screenSize(512.0f, 512.0f);
 
@@ -45,11 +43,9 @@ int main() {
         }
 
         player.Update(deltaTime);
-
-    
         view.setCenter(player.GetPosition());
 
-        window.clear(sf::Color(150, 150, 150));
+        window.clear(sf::Color(0, 0, 0));
         window.setView(view);
         player.Draw(window);
         window.display();
