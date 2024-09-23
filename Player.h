@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
+#include "Collider.h"
 
 class Player
 {
@@ -13,7 +14,7 @@ class Player
         void Draw(sf::RenderWindow &window);
 
         sf::Vector2f GetPosition(){return body.getPosition();}
-
+        Collider& GetCollider(){return collider;}
 
     private:
      sf::RectangleShape body;
@@ -21,6 +22,7 @@ class Player
      unsigned int row;
      float speed;
      bool isMoving;
+     Collider collider;
 
 
 };

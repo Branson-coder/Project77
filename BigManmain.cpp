@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Player.h"
 #include "Wall.h"
-// g++ AidanMain.cpp Animation.cpp Player.cpp -lsfml-graphics -lsfml-window -lsfml-system
+// g++ BigManmain.cpp Collider.cpp Wall.cpp Animation.cpp Player.cpp -lsfml-graphics -lsfml-window -lsfml-system
 
 static const float VIEW_HEIGHT = 512.0f;
 
