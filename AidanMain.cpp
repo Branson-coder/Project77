@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Player.h"
+// compile with this:
 // g++ AidanMain.cpp Animation.cpp Player.cpp -lsfml-graphics -lsfml-window -lsfml-system
 
 static const float VIEW_HEIGHT = 512.0f;
