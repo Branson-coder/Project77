@@ -5,10 +5,11 @@ Collider::Collider(sf::RectangleShape& body):body(body){}
 
 //checks collision using AABB method 
 bool Collider::checkCollision(Collider& other, float push)
-{   sf::Vector2f thisPosition = GetPosition();
-    sf::Vector2f thisHalfSize = GetHalfSize();
-    sf::Vector2f otherPosition = other.GetPosition();
+{   sf::Vector2f otherPosition = other.GetPosition();
     sf::Vector2f otherHalfSize = other.GetHalfSize();
+    sf::Vector2f thisPosition = GetPosition();
+    sf::Vector2f thisHalfSize = GetHalfSize();
+    
 
     float diffX = otherPosition.x - thisPosition.x;
     float diffY = otherPosition.y - thisPosition.y;
@@ -17,7 +18,7 @@ bool Collider::checkCollision(Collider& other, float push)
     float intersectY = abs(diffY) - (thisHalfSize.y + otherHalfSize.y);
 
     if(intersectX < 0.0f && intersectY< 0.0f ){ //proceed with collision response
-       
+  
       if(intersectX > intersectY){ 
         if(diffX > 0.0f){
             Move(intersectX * (1.0f - push), 0.0f);

@@ -25,7 +25,10 @@ int main() {
 
     sf::Vector2f screenSize(512.0f, 512.0f);
 
-    Wall wall(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
+    sf::Texture wallTexture;
+    wallTexture.loadFromFile("wall_texture.jpeg");
+
+    Wall wall(&wallTexture, sf::Vector2f(100.0f, 100.0f), sf::Vector2f(500.0f, 200.0f));
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -46,7 +49,10 @@ int main() {
         }
 
         player.Update(deltaTime);
-        wall.GetCollider().checkCollision(player.GetCollider(), 1.0f);
+
+        if(wall.GetCollider().checkCollision(player.GetCollider(), 1.0f)){
+            std::cout<<"yay"<<std::endl;
+        };
         view.setCenter(player.GetPosition());
 
         window.clear(sf::Color(0, 0, 0));
