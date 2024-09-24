@@ -17,12 +17,7 @@ public:
 	{
 		return body;
 	}
-
-	bool getcolliderState()
-	{
-		return hasCollider;
-	}
-
+	
 private:
 	sf::RectangleShape body;
 	bool hasCollider;

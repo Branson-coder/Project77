@@ -50,9 +50,9 @@ int main() {
 
         player.Update(deltaTime);
 
-        if(wall.GetCollider().checkCollision(player.GetCollider(), 1.0f)){
-            std::cout<<"yay"<<std::endl;
-        };
+        wall.GetCollider().checkCollision(player.GetCollider(), 0.5f);
+
+        
         view.setCenter(player.GetPosition());
 
         window.clear(sf::Color(0, 0, 0));

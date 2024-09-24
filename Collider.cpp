@@ -22,21 +22,21 @@ bool Collider::checkCollision(Collider& other, float push)
       if(intersectX > intersectY){ 
         if(diffX > 0.0f){
             Move(intersectX * (1.0f - push), 0.0f);
-            other.Move(-intersectX * push, 0.0f);
+            other.Move(-intersectY * push, 0.0f);
         }
         else{
             Move(-intersectX * (1.0f - push), 0.0f);
-            other.Move(intersectX * push, 0.0f);
+            other.Move(intersectY * push, 0.0f);
         }
       }   
       else{ 
         if(diffY > 0.0f){
             Move(0.0f, intersectY * (1.0f - push));
-            other.Move(0.0f, -intersectY * push);
+            other.Move(0.0f, -intersectX * push);
         }
         else{
             Move(0.0f, -intersectY * (1.0f - push));
-            other.Move(0.0f, intersectY * push);
+            other.Move(0.0f, intersectX * push);
         }
       }
 
