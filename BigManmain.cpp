@@ -50,7 +50,7 @@ int main() {
 
         player.Update(deltaTime);
 
-        wall.GetCollider().checkCollision(player.GetCollider(), 0.5f);
+        wall.GetCollider().checkCollision(player.GetCollider(), 0.0f);
 
         
         view.setCenter(player.GetPosition());
