@@ -14,7 +14,7 @@ class Player
         void Draw(sf::RenderWindow &window);
 
         sf::Vector2f GetPosition(){return body.getPosition();}
-        Collider& GetCollider(){return collider;}
+        Collider GetCollider(){return Collider(body);}
 
     private:
      sf::RectangleShape body;
@@ -22,7 +22,7 @@ class Player
      unsigned int row;
      float speed;
      bool isMoving;
-     Collider collider;
+     
 
 
 };

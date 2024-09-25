@@ -2,7 +2,7 @@
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime,
                float speed)
-    : animation(texture, imageCount, switchTime), body(), collider(body)
+    : animation(texture, imageCount, switchTime)
 {
   this->speed = speed;
   row = 0;

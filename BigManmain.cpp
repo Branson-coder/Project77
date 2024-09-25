@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Player.h"
 #include "Wall.h"
+#include "Room.h"
 // g++ BigManmain.cpp Collider.cpp Wall.cpp Animation.cpp Player.cpp -lsfml-graphics -lsfml-window -lsfml-system
 
 static const float VIEW_HEIGHT = 512.0f;
@@ -28,7 +29,8 @@ int main() {
     sf::Texture wallTexture;
     wallTexture.loadFromFile("wall_texture.jpeg");
 
-    Wall wall(&wallTexture, sf::Vector2f(100.0f, 100.0f), sf::Vector2f(500.0f, 200.0f));
+    sf::Vector2f roomPos(0.0f, 0.0f);
+    Room room(&wallTexture, roomPos, 1);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -50,14 +52,14 @@ int main() {
 
         player.Update(deltaTime);
 
-        wall.GetCollider().checkCollision(player.GetCollider(), 0.0f);
+        Collider playerCollider = player.GetCollider();
 
         
         view.setCenter(player.GetPosition());
 
         window.clear(sf::Color(0, 0, 0));
         window.setView(view);
-        wall.Draw(window);
+        room.Display(window, playerCollider, player);
         player.Draw(window);
         window.display();
     }
