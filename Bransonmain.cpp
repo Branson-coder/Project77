@@ -3,8 +3,7 @@
 #include "Player.h"
 #include "Wall.h"
 #include "Room.h"
-// g++ BigManmain.cpp Collider.cpp Wall.cpp Animation.cpp Player.cpp -lsfml-graphics -lsfml-window -lsfml-system
-
+// g++ Bransonmain.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp -o game -lsfml-graphics -lsfml-window -lsfml-system
 static const float VIEW_HEIGHT = 512.0f;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)

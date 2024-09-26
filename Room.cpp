@@ -17,11 +17,11 @@ Room:: Room(sf::Texture* texture, sf::Vector2f position, int roomType){
 				{
 					if (y != 5)
 					{
-						layout[x].push_back(Wall(texture, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), true));
+						layout[x].push_back(Wall(texture, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), sf::Color:: White, true));
 					}
 					else
 					{
-						layout[x].push_back(Wall(nullptr, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), false));
+						layout[x].push_back(Wall(nullptr, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), sf::Color:: Transparent, false));
 					}
 
 				}
@@ -29,16 +29,16 @@ Room:: Room(sf::Texture* texture, sf::Vector2f position, int roomType){
 				{
 					if (x != 8)
 					{
-						layout[x].push_back(Wall(texture, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), true));
+						layout[x].push_back(Wall(texture, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), sf::Color:: White, true));
 					}
 					else
 					{
-						layout[x].push_back(Wall(nullptr, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), false));
+						layout[x].push_back(Wall(nullptr, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), sf::Color:: Transparent, false));
 					}
 				}
 				else
 				{
-					layout[x].push_back(Wall(nullptr, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), false));
+					layout[x].push_back(Wall(nullptr, sf::Vector2f(100.0f, 100.f), position + sf::Vector2f(100.0f * x, 100.0f * y), sf::Color:: Transparent, false));
 				}
 
 			}

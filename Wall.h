@@ -5,7 +5,7 @@
 class Wall
 {
 public:
-	Wall(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position, bool hasCollided);
+	Wall(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position, sf::Color colour, bool hasCollided);
 	~Wall();
 
 	void Draw(sf::RenderWindow& window);
