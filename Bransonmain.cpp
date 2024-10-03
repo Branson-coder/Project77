@@ -21,7 +21,7 @@ int main() {
     sf::Texture playerTexture;
     playerTexture.loadFromFile("Player.png");
 
-    Player player(&playerTexture, sf::Vector2u(4, 4), 0.2f, 100.0f);
+    Player player(&playerTexture, sf::Vector2u(4, 4), 0.2f, 200.0f);
 
     sf::Vector2f screenSize(512.0f, 512.0f);
 
@@ -56,7 +56,7 @@ int main() {
         
         view.setCenter(player.GetPosition());
 
-        window.clear(sf::Color(0, 0, 0));
+        window.clear(sf::Color(150, 150, 150));
         window.setView(view);
         room.Display(window, playerCollider, player);
         player.Draw(window);
