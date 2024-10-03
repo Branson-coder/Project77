@@ -22,9 +22,9 @@ public:
 
     bool getIsPickedUp();
 
-    void Draw(sf::RenderWindow& window);
+    virtual void Draw(sf::RenderWindow& window);
 
-    void effect();
+    virtual void effect() = 0;
 };
 
 #endif
