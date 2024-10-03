@@ -5,6 +5,14 @@
 
 class Animation
 {
+
+    private:
+        sf::Vector2u imageCount;
+        sf::Vector2u currentImage;
+
+        float totalTime;
+        float switchTime;
+
     public:
         Animation(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);
         ~Animation();
@@ -15,12 +23,6 @@ class Animation
 
         void ResetCurrentImage();
 
-    private:
-        sf::Vector2u imageCount;
-        sf::Vector2u currentImage;
-
-        float totalTime;
-        float switchTime;
 
 };
 
