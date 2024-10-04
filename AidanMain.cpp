@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
 #include "Player.h"
-// compile with this:
-// g++ AidanMain.cpp Animation.cpp Player.cpp -lsfml-graphics -lsfml-window -lsfml-system
-
+#include "Wall.h"
+#include "Room.h"
+// g++ AidanMain.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Projectile.cpp -o game -lsfml-graphics -lsfml-window -lsfml-system
 static const float VIEW_HEIGHT = 512.0f;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
@@ -21,9 +22,18 @@ int main() {
     sf::Texture playerTexture;
     playerTexture.loadFromFile("Player.png");
 
-    Player player(&playerTexture, sf::Vector2u(4, 4), 0.2f, 100.0f);
+    sf::Texture projectileTexture;
+    projectileTexture.loadFromFile("Projectile.png");
+
+    Player player(&playerTexture, sf::Vector2u(4, 4), 0.2f, 200.0f);
 
     sf::Vector2f screenSize(512.0f, 512.0f);
+
+    sf::Texture wallTexture;
+    wallTexture.loadFromFile("wall_texture.jpeg");
+
+    sf::Vector2f roomPos(0.0f, 0.0f);
+    Room room(&wallTexture, roomPos, 1);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -44,10 +54,15 @@ int main() {
         }
 
         player.Update(deltaTime);
+
+        Collider playerCollider = player.GetCollider();
+
+        
         view.setCenter(player.GetPosition());
 
-        window.clear(sf::Color(0, 0, 0));
+        window.clear(sf::Color(150, 150, 150));
         window.setView(view);
+        room.Display(window, playerCollider, player);
         player.Draw(window);
         window.display();
     }
