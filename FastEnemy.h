@@ -1,16 +1,17 @@
 #ifndef FASTENEMY_H
 #define FASTENEMY_H
+
 #include "Enemy.h"
 
-class FastEnemy : public Enemy
+class FastEnemy : public Enemy 
 {
-    private:
+public:
+    FastEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);  // Higher speed, lower health
 
-
-
-    public:
-
+    void update(float deltaTime, const Player& player) override {
+        // Fast enemy moves towards the player faster
+        Enemy::update(deltaTime, player);
+    }
 };
 
-
-#endif
+#endif 

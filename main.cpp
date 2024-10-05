@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include "Player.h"
 #include "Wall.h"
 #include "Room.h"
 
@@ -23,9 +22,7 @@ int main() {
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("Player.png");
-
-    sf::Texture projectileTexture;
-    projectileTexture.loadFromFile("Projectile.png");
+    
 
     Player player(&playerTexture, sf::Vector2u(4, 4), 0.2f, 200.0f);
 
@@ -37,6 +34,8 @@ int main() {
     sf::Vector2f roomPos(0.0f, 0.0f);
     Room room(&wallTexture, roomPos, 1);
 
+
+
     float deltaTime = 0.0f;
     sf::Clock clock;
 
@@ -45,14 +44,8 @@ int main() {
 
         sf::Event evnt;
         while (window.pollEvent(evnt)) {
-            switch (evnt.type) {
-                case sf::Event::Closed:
-                    window.close();
-                    break;
-                case sf::Event::Resized:
-                    ResizeView(window, view);
-                    break;
-            }
+            if (evnt.type == sf::Event::Closed) window.close();
+            if (evnt.type == sf::Event::Resized) ResizeView(window, view);
         }
 
         player.Update(deltaTime);
@@ -64,8 +57,11 @@ int main() {
 
         window.clear(sf::Color(150, 150, 150));
         window.setView(view);
-        room.Display(window, playerCollider, player);
+        room.Display(window, playerCollider, player, deltaTime);
         player.Draw(window);
+
+
+        
         window.display();
     }
 
