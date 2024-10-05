@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Wall.h"
 #include "Room.h"
-// g++ AidanMain.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Projectile.cpp -o game -lsfml-graphics -lsfml-window -lsfml-system
+// g++ AidanMain.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Projectile.cpp Weapon.cpp AssaultRifle.cpp AK47.cpp -o game -lsfml-graphics -lsfml-window -lsfml-system
 static const float VIEW_HEIGHT = 512.0f;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
