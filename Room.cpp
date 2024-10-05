@@ -79,7 +79,7 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
 				playerCollider.checkCollision(wallCollider, 0.0f);
 				
 			}
-			// need to implement the collision between weapon and player 
+			// need to implement the collision between weapon and player    
 		}
 
         for (Weapon* weapon : weapons) {
