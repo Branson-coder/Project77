@@ -1,19 +1,26 @@
-# optional flags (if the compiler supports it)
-CXXFLAGS += -std=c++11
+# c++ compiler is g++ or clang
+CXX = g++
 
-# HIGHLY RECOMMENDED flags
-CXXFLAGS += -Wall -Wextra -pedantic-errors
+# flags for the compiler
+CXXFLAGS = -std=c++17 -Wall -Wextra
+# flags required for sfml library compilation
+LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
-# required for SFML programs
-LDLIBS := $(shell pkg-config sfml-all --libs)
+# all cpp files here
+SOURCES = main.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Projectile.cpp Weapon.cpp AssaultRifle.cpp AK47.cpp
 
-# The rest will turn any source file ending in .cpp
-# into a program of the same name
+# .o files from the specific .cpp files
+OBJECTS = $(SOURCES:.cpp=.o)
 
-SOURCES := $(wildcard *.cpp)
-PROGRAMS := $(patsubst %.cpp,%,$(SOURCES))
+# ./game  (command in terminal to run game)
+EXECUTABLE = game
 
-all: $(PROGRAMS)
+$(EXECUTABLE): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $(EXECUTABLE) $(LDFLAGS)
 
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# this cleans up build files
 clean:
-	$(RM) $(PROGRAMS)
+	rm -f $(OBJECTS) $(EXECUTABLE)
