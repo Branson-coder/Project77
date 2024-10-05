@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Room.h"
 #include "Wall.h"
+#include "AK47.h"
 
 using namespace std;
 
@@ -26,11 +27,43 @@ Room:: Room(sf::Texture* texture, sf::Vector2f position, int roomType){
 				
             }
         }
+        generateWeapons();
     }
 }
 
- 
+void Room::generateWeapons(){
+    static sf::Texture akTexture;
+    static bool akTextureLoaded = false;
+    if (!akTextureLoaded) {
+        if (!akTexture.loadFromFile("AK47.png")) {
+            std::cerr << "Error loading AK47 texture!" << std::endl; // debugging stuff just in case 
+            return; 
+        }
+        akTextureLoaded = true;
+    }
+    
+    static sf::Texture projectileTex;
+    static bool projectileTexLoaded = false;
+    if (!projectileTexLoaded) {
+        if (!projectileTex.loadFromFile("Projectile.png")) {
+            std::cerr << "Error loading projectile texture!" << std::endl;
+            return; 
+        }
+        projectileTexLoaded = true;
+    }
+        
+         for (int i = 0; i < 3; i++) {
+        float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1); 
+        float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
 
+        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex);
+        newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+        weapons.push_back(newWeapon);
+
+    }
+
+
+}
 
 void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &player){
 	
@@ -46,9 +79,13 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
 				playerCollider.checkCollision(wallCollider, 0.0f);
 				
 			}
-			
+			// need to implement the collision between weapon and player 
 		}
+
+        for (Weapon* weapon : weapons) {
+        weapon->Draw(window); 
 	}
 	
+}
 }
 
