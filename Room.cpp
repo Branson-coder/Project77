@@ -120,12 +120,11 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
 
         for (Weapon* weapon : weapons) {
         weapon->Draw(window);
+        }
         
         for (Heals* healthPack : healthPacks) {
         healthPack->Draw(window);
         }
-         
-	}
     for (Enemy* enemy : enemies) {
         enemy->update(deltaTime, player);
         enemy->draw(window); // Draw the enemy
