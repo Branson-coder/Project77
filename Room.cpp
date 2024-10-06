@@ -29,6 +29,7 @@ Room:: Room(sf::Texture* texture, sf::Vector2f position, int roomType){
         }
         generateWeapons();
         spawnEnemies();
+        generateHeals();
     }
 }
 
@@ -67,6 +68,28 @@ void Room::generateWeapons(){
 
 }
 
+void Room::generateHeals() {
+    static sf::Texture healTexture;
+    static bool healTextureLoaded = false;
+    if (!healTextureLoaded) {
+        if (!healTexture.loadFromFile("heal.png")) {
+            std::cerr << "Error loading heal.png texture!" << std::endl;
+            return;
+        }
+        healTextureLoaded = true;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
+        float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+        std::cout << "Spawning health pack at: (" << x << ", " << y << ")" << std::endl;
+
+        // Dynamically allocate the health pack
+        Heals* newHealthPack = new Heals(sf::Vector2f(100.0f * x, 100.0f * y), &healTexture);
+        healthPacks.push_back(newHealthPack);
+    }
+}
+
 Room::~Room() {}
 
 void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &player, float deltaTime){
@@ -87,7 +110,12 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
 		}
 
         for (Weapon* weapon : weapons) {
-        weapon->Draw(window); 
+        weapon->Draw(window);
+        
+        for (Heals* healthPack : healthPacks) {
+        healthPack->Draw(window);
+        }
+         
 	}
     for (Enemy* enemy : enemies) {
         enemy->update(deltaTime, player);
