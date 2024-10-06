@@ -1,8 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include "Player.h"
 #include "Wall.h"
 #include "Room.h"
+#include "Weapon.h"
 
 // g++ main.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Projectile.cpp Weapon.cpp AssaultRifle.cpp AK47.cpp -o game -lsfml-graphics -lsfml-window -lsfml-system
 
