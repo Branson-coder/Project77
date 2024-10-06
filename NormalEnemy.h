@@ -8,6 +8,11 @@ class NormalEnemy : public Enemy
 
 
     public:
+    NormalEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);  // normal speed, normal health
+
+    void update(float deltaTime, const Player& player) override;
+    
+
 
 };
 

@@ -8,10 +8,7 @@ class FastEnemy : public Enemy
 public:
     FastEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);  // Higher speed, lower health
 
-    void update(float deltaTime, const Player& player) override {
-        // Fast enemy moves towards the player faster
-        Enemy::update(deltaTime, player);
-    }
+    void update(float deltaTime, const Player& player) override;
 };
 
 #endif 

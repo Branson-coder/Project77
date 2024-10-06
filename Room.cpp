@@ -28,7 +28,9 @@ Room:: Room(sf::Texture* texture, sf::Vector2f position, int roomType){
             }
         }
         generateWeapons();
-        spawnEnemies();
+        spawnFastEnemies();
+        spawnTankyEnemies();
+        spawnNormalEnemies();
         generateHeals();
     }
 }
@@ -128,38 +130,84 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
     for (Enemy* enemy : enemies) {
         enemy->update(deltaTime, player);
         enemy->draw(window); // Draw the enemy
-        // Optional: Draw a debug rectangle
-        // sf::RectangleShape debugRect(sf::Vector2f(50.0f, 50.0f)); // Adjust size as needed
-        // debugRect.setPosition(enemy->getPosition());
-        // debugRect.setFillColor(sf::Color::Red);
-        // window.draw(debugRect);
+       
     }
 }    
 	
 }
 
 
-void Room::spawnEnemies(){
-    static sf::Texture enemyTexture;
-    static bool enemyTextureLoaded = false;
-     if (!enemyTextureLoaded) {
-        if(!enemyTexture.loadFromFile("FastEnemy.png")){
+void Room::spawnFastEnemies(){
+    static sf::Texture fastEnemyTexture;
+    static bool fastEnemyTextureLoaded = false;
+     if (!fastEnemyTextureLoaded) {
+        if(!fastEnemyTexture.loadFromFile("FastEnemy.png")){
         std::cerr << "Error loading FastEnemy texture!" << std::endl;
         return; // Exit the function if the texture fails to load
         }
-        enemyTextureLoaded = true;
+        fastEnemyTextureLoaded = true;
     }
 
         for (int i = 0; i < 3; i++) {
         float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1); 
         float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
-         std::cout << "Spawning enemy at: (" << x << ", " << y << ")" << std::endl; // Debug output
+         std::cout << "Spawning fast enemy at: (" << x << ", " << y << ")" << std::endl; // Debug output
 
-        Enemy* newEnemy = new FastEnemy(&enemyTexture, sf::Vector2u(3, 4), 0.2f);
+        Enemy* newEnemy = new FastEnemy(&fastEnemyTexture, sf::Vector2u(3, 4), 0.2f);
         newEnemy->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         enemies.push_back(newEnemy);
 
     }
 
+
+}
+
+void Room::spawnTankyEnemies(){
+    static sf::Texture tankyEnemyTexture;
+    static bool tankyEnemyTextureLoaded = false;
+     if (!tankyEnemyTextureLoaded) {
+        if(!tankyEnemyTexture.loadFromFile("TankyEnemy.png")){
+        std::cerr << "Error loading TankyEnemy texture!" << std::endl;
+        return; // Exit the function if the texture fails to load
+        }
+        tankyEnemyTextureLoaded = true;
+    }
+
+        for (int i = 0; i < 3; i++) {
+        float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1); 
+        float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+         std::cout << "Spawning tanky enemy at: (" << x << ", " << y << ")" << std::endl; // Debug output
+
+        Enemy* newEnemy = new TankyEnemy(&tankyEnemyTexture, sf::Vector2u(3, 4), 0.2f);
+        newEnemy->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+        enemies.push_back(newEnemy);
+
+    }
+
+
+}
+
+void Room::spawnNormalEnemies() 
+{
+    static sf::Texture normalEnemyTexture;
+    static bool normalEnemyTextureLoaded = false;
+     if (!normalEnemyTextureLoaded) {
+        if(!normalEnemyTexture.loadFromFile("NormalEnemy.png")){
+        std::cerr << "Error loading Normal Enemy texture!" << std::endl;
+        return; // Exit the function if the texture fails to load
+        }
+        normalEnemyTextureLoaded = true;
+    }
+
+        for (int i = 0; i < 3; i++) {
+        float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1); 
+        float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+         std::cout << "Spawning normal enemy at: (" << x << ", " << y << ")" << std::endl; // Debug output
+
+        Enemy* newEnemy = new NormalEnemy(&normalEnemyTexture, sf::Vector2u(6, 4), 0.2f);
+        newEnemy->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+        enemies.push_back(newEnemy);
+
+    }
 
 }
