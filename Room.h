@@ -18,7 +18,9 @@ public:
     void Display(sf::RenderWindow & window, Collider playerCollider, Player &player, float deltaTime);
 	
 	void generateWeapons();
-	void spawnEnemies();
+	void spawnFastEnemies();
+	void spawnTankyEnemies();
+	void spawnNormalEnemies();
 	void generateHeals();
 
 	~Room();
