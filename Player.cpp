@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Player.h"
-#include "Weapon.h"
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed)
     : animation(texture, imageCount, switchTime), currentWeapon(nullptr)
