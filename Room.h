@@ -7,6 +7,8 @@
 #include "TankyEnemy.h"
 #include "NormalEnemy.h"
 #include <vector>
+#include "Heals.h"
+#include "Ammo.h"
 using namespace std;
 
 class Room
@@ -17,6 +19,7 @@ public:
 	
 	void generateWeapons();
 	void spawnEnemies();
+	void generateHeals();
 
 	~Room();
 
@@ -27,6 +30,6 @@ public:
 	vector<vector<Wall>> layout;
 	sf::Vector2f maxSize = sf::Vector2f(15.0f,9.0f);
 	std::vector<Enemy*> enemies;
+	std::vector<Heals*> healthPacks;
 
-	
 };
