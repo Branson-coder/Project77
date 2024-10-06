@@ -1,8 +1,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "Room.h"
-#include "Wall.h"
-#include "AK47.h"
+#include <random>
+
 
 using namespace std;
 
@@ -28,6 +28,7 @@ Room:: Room(sf::Texture* texture, sf::Vector2f position, int roomType){
             }
         }
         generateWeapons();
+        spawnEnemies();
     }
 }
 
@@ -55,6 +56,7 @@ void Room::generateWeapons(){
          for (int i = 0; i < 3; i++) {
         float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1); 
         float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl; 
 
         Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
@@ -65,7 +67,9 @@ void Room::generateWeapons(){
 
 }
 
-void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &player){
+Room::~Room() {}
+
+void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &player, float deltaTime){
 	
 	
 	for (int x = 0; x < maxSize.x; x++)
@@ -85,7 +89,37 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
         for (Weapon* weapon : weapons) {
         weapon->Draw(window); 
 	}
+    for (Enemy* enemy : enemies) {
+        enemy->update(deltaTime, player);
+        enemy->draw(window); // Draw the enemy
+        // Optional: Draw a debug rectangle
+        // sf::RectangleShape debugRect(sf::Vector2f(50.0f, 50.0f)); // Adjust size as needed
+        // debugRect.setPosition(enemy->getPosition());
+        // debugRect.setFillColor(sf::Color::Red);
+        // window.draw(debugRect);
+    }
+}    
 	
 }
-}
 
+
+void Room::spawnEnemies(){
+    static sf::Texture enemyTexture;
+     if (!enemyTexture.loadFromFile("FastEnemy.png")) {
+        std::cerr << "Error loading FastEnemy texture!" << std::endl;
+        return; // Exit the function if the texture fails to load
+    }
+
+        for (int i = 0; i < 3; i++) {
+        float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1); 
+        float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+         std::cout << "Spawning enemy at: (" << x << ", " << y << ")" << std::endl; // Debug output
+
+        Enemy* newEnemy = new FastEnemy(&enemyTexture, sf::Vector2u(3, 4), 0.2f);
+        newEnemy->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+        enemies.push_back(newEnemy);
+
+    }
+
+
+}

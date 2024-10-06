@@ -6,6 +6,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     this->speed = speed;
     row = 0;
     timeDelay = 0.0f;
+    health = 100.0f;  // Initialize player's health
 
     body.setSize(sf::Vector2f(50.0f, 50.0f));
     body.setOrigin(body.getSize() / 2.0f);
@@ -16,7 +17,6 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     facingDirection = Down;
 
     projectileTexture.loadFromFile("Projectile.png");
-
 }
 
 Player::~Player() {}
@@ -24,7 +24,7 @@ Player::~Player() {}
 void Player::Update(float deltaTime)
 {
     sf::Vector2f movement(0.0f, 0.0f);
-    isMoving = false;
+    bool isMoving = false;
     timeDelay += deltaTime;
 
     // Update player movement and track facing direction
@@ -118,9 +118,9 @@ void Player::Update(float deltaTime)
         body.setTextureRect(animation.uvRect); 
     }
 
-    // Update projectiles
     updateProjectiles(deltaTime);
 }
+
 
 void Player::Draw(sf::RenderWindow& window)
 {
@@ -149,4 +149,14 @@ void Player::updateProjectiles(float deltaTime)
     projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(),
                                      [](Projectile& p) { return p.getLifetime() <= 0; }),
                       projectiles.end());
+}
+
+void Player::takeDamage(float damage)
+{
+    health -= damage;  // Decrease health by damage amount
+    if (health < 0) {
+        health = 0;  // Clamp health to zero
+    }
+
+    
 }

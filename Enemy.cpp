@@ -1,103 +1,65 @@
 #include "Enemy.h"
-Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, sf::Vector2f spawnPos, Projectile projectile, float switchTime, int type) 
-            : animation(texture, imageCount, switchTime)
+#include <iostream>
+
+Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float health, float speed)
+    : animation(texture, imageCount, switchTime), health(health), speed(speed)
 {
-    active = false;
-    speed = 200.0f;
-    currentSpeed = speed;
-    enemyProjectile = projectile;
-
-    timeDelay = 0;
-    row = 0;
+    body.setOrigin(body.getSize() / 2.0f);
+    body.setTexture(texture);
     faceRight = true;
-    damage = 10;
-    
-    
-	body.setOrigin(body.getSize() / 2.0f);
-	body.setTexture(texture);
-
 }
 
-void Enemy::update(float deltaTime, Player player)
-{
-	float xDif = player.GetPosition().x - body.getPosition().x;
-	float yDif = player.GetPosition().y - body.getPosition().y;
-	timeDelay += deltaTime;
+void Enemy::update(float deltaTime, const Player& player) {
 
-    if (active)
-    {
-        movement = sf::Vector2f(0.0f, 0.0f);
 
-        // if player is above enemy
-        if (yDif < -100 && abs(yDif) > abs(xDif))
-			{
-				direction = sf::Vector2f(0.0f, -1.0f);
-				movement.y -= currentSpeed * deltaTime;
-			}
-			//if player is to the right of enemy
-			else if (xDif > 100 && abs(xDif) > abs(yDif))
-			{
-				direction = sf::Vector2f(1.0f, 0.0f);
-				movement.x += currentSpeed * deltaTime;
+    float xDif = player.GetPosition().x - body.getPosition().x;
+    float yDif = player.GetPosition().y - body.getPosition().y;
+	 row = 0; 
 
-			}
-			//if player is to the left of enemy
-			else if (xDif < -100 && abs(xDif) > abs(yDif))
-			{
-				direction = sf::Vector2f(-1.0f, 0.0f);
-				movement.x -= currentSpeed * deltaTime;
-			}
-			//if player is below enemy
-			else if (yDif > 100 && abs(yDif) > abs(xDif))
-			{
-				direction = sf::Vector2f(0.0f, 1.0f);
-				movement.y += currentSpeed * deltaTime;
-			}
-            
-			else if (movement.x != 0)
-			{
-				row = 1;
-				if (movement.x > 0.0f)
-				{
-					faceRight = true;
-				}
-				else
-				{
-					faceRight = false;
-				}
-			}
-			else if (movement.y != 0)
-			{
-				if (movement.y > 0.0f)
-				{
-					row = 2;
-					faceUp = true;
-				}
-				else
-				{
-					row = 4;
-					faceUp = false;
-				}
-			}
+    movement = sf::Vector2f(0.0f, 0.0f);
+
+    if (yDif < 0 && std::abs(yDif) > std::abs(xDif)) {
+        direction = sf::Vector2f(0.0f, -1.0f);
+        movement.y -= speed * deltaTime;
+		row = 0;
 		
-
+    }
+    else if (xDif > 0 && std::abs(xDif) > std::abs(yDif)) {
+        direction = sf::Vector2f(1.0f, 0.0f);
+        movement.x += speed * deltaTime;
+		row = 2;
+		
+    }
+    else if (xDif < 0 && std::abs(xDif) > std::abs(yDif)) {
+        direction = sf::Vector2f(-1.0f, 0.0f);
+        movement.x -= speed * deltaTime;
+		row = 1;
+		
+    }
+    else if (yDif > 0 && std::abs(yDif) > std::abs(xDif)) {
+        direction = sf::Vector2f(0.0f, 1.0f);
+        movement.y += speed * deltaTime;
+		row = 3;
+		
     }
 
+        animation.Update(row, deltaTime);
+        body.setTextureRect(animation.uvRect);
+        body.move(movement);
+
+
 }
 
-
-
-void Enemy::draw(sf::RenderWindow& window)
-{
-	window.draw(body);
+void Enemy::draw(sf::RenderWindow& window) {
+    window.draw(body);
 }
 
-
-void Enemy::setActive()
-{
-	active = true;
+void Enemy::takeDamage(float damage) {
+    health -= damage;
+    if (health < 0) {
+        health = 0;
+    }
 }
 
-Enemy::~Enemy()
-{
+Enemy::~Enemy() {
 }
