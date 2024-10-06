@@ -7,13 +7,13 @@ CXXFLAGS = -std=c++17 -Wall -Wextra
 LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 # all cpp files here
-SOURCES = main.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Projectile.cpp Weapon.cpp AssaultRifle.cpp AK47.cpp Enemy.cpp FastEnemy.cpp Item.cpp Heals.cpp
+SOURCES = main.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Projectile.cpp Weapon.cpp AK47.cpp AssaultRifle.cpp Enemy.cpp FastEnemy.cpp Item.cpp Heals.cpp
 
 # .o files from the specific .cpp files
 OBJECTS = $(SOURCES:.cpp=.o)
 
 # ./game  (command in terminal to run game)
-EXECUTABLE = game
+EXECUTABLE = games
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(OBJECTS) -o $(EXECUTABLE) $(LDFLAGS)
