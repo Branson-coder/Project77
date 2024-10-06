@@ -14,14 +14,14 @@ AssaultRifle::AssaultRifle(sf::Texture* texture, sf::Vector2f size, sf::Texture*
 void AssaultRifle::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
     if (currentAmmo >= burstFireRounds) {
         for (int i = 0; i < burstFireRounds; ++i) {
-            Projectile newProjectile(&projectileTexture, startPosition, direction, 700.0f);  // Example speed
-            newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  // Set rotation based on direction
+            Projectile newProjectile(&projectileTexture, startPosition, direction, 700.0f);  
+            newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
             projectiles.push_back(newProjectile);
         }
         currentAmmo -= burstFireRounds;
         std::cout << "Assault Rifle fired " << burstFireRounds << " rounds. Ammo left: " << currentAmmo << std::endl;
     } else {
-        std::cout << "Not enough ammo to fire burst." << std::endl;
+        std::cout << "Not enough ammo to fire burst." << std::endl; // might get rid of the burst 
     }
 }
 

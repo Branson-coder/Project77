@@ -1,7 +1,9 @@
+#include <iostream>
 #include "Player.h"
+#include "Weapon.h"
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed)
-    : animation(texture, imageCount, switchTime)
+    : animation(texture, imageCount, switchTime), currentWeapon(nullptr)
 {
     this->speed = speed;
     row = 0;
@@ -16,12 +18,57 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     // Default to facing down initially
     facingDirection = Down;
 
-    projectileTexture.loadFromFile("Projectile.png");
 }
 
-Player::~Player() {}
+Player::~Player() {
+    if(currentWeapon != nullptr)  {
+        delete currentWeapon;
+        currentWeapon = nullptr;
+    }
+    
+}
 
-void Player::Update(float deltaTime)
+void Player::equipWeapon(Weapon* weapon) {
+    if (weapon) {
+        inventory.push_back(weapon);
+        std::cout << "Weapon is in to inventory." << std::endl; //text to check for now
+        if (currentWeapon == nullptr) {
+            currentWeapon = weapon;  
+            std::cout << "Equipped weapon." << std::endl;
+        }
+    }
+}
+
+void Player::shoot() {
+    if (currentWeapon) {
+        sf::Vector2f direction;
+        sf::Vector2f playerPosition = body.getPosition();
+
+        switch (facingDirection) {
+            case Left:  direction = sf::Vector2f(-1.0f, 0.0f); break;
+            case Right: direction = sf::Vector2f(1.0f, 0.0f); break;
+            case Up:    direction = sf::Vector2f(0.0f, -1.0f); break;
+            case Down:  direction = sf::Vector2f(0.0f, 1.0f); break;
+        }
+
+        sf::Vector2f spawnPosition = playerPosition;
+        float offset = 25.0f;  // Half of player's size (50/2)
+
+        switch (facingDirection) {
+            case Left:  spawnPosition.x -= offset; break;
+            case Right: spawnPosition.x += offset; break;
+            case Up:    spawnPosition.y -= offset; break;
+            case Down:  spawnPosition.y += offset; break;
+        }
+
+        currentWeapon->fire(direction, spawnPosition);
+    }
+    else {
+        std::cout << "No weapon equipped!" << std::endl;
+    }
+}
+
+void Player::Update(float deltaTime, const sf::RenderWindow& window)
 {
     sf::Vector2f movement(0.0f, 0.0f);
     bool isMoving = false;
@@ -57,52 +104,6 @@ void Player::Update(float deltaTime)
         isMoving = true;
     }
 
-   // Fire a projectile in the direction the player is facing
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timeDelay > 0.5f)  // Fire every 0.5 seconds
-    {
-        timeDelay = 0;  // Reset fire timer
-
-        sf::Vector2f projectileDirection;
-        float rotationAngle = 0.0f;  // Variable to store the angle for projectile rotation
-        sf::Vector2f playerPosition = body.getPosition();
-        
-        sf::Vector2f projectileSpawnPosition = playerPosition;
-
-        switch (facingDirection)
-        {
-            case Left: 
-                projectileDirection = sf::Vector2f(-1.0f, 0.0f); 
-                rotationAngle = 180.0f;  // Rotate 180 degrees to face left
-                projectileSpawnPosition.x += body.getSize().x/5;
-                projectileSpawnPosition.y += body.getSize().y/2;
-                break;
-
-            case Right: 
-                projectileDirection = sf::Vector2f(1.0f, 0.0f); 
-                rotationAngle = 0.0f;  // Default rotation (facing right)
-                projectileSpawnPosition.x -= body.getSize().x/5;
-                projectileSpawnPosition.y -= body.getSize().y/2;
-                break;
-
-            case Up: 
-                projectileDirection = sf::Vector2f(0.0f, -1.0f); 
-                rotationAngle = 270.0f;  // Rotate 270 degrees to face up
-                projectileSpawnPosition.x -= body.getSize().x/2;
-                projectileSpawnPosition.y += body.getSize().y/5;
-                break;
-
-            case Down: 
-                projectileDirection = sf::Vector2f(0.0f, 1.0f); 
-                rotationAngle = 90.0f;  // Rotate 90 degrees to face down
-                projectileSpawnPosition.x += body.getSize().x/2;
-                projectileSpawnPosition.y -= body.getSize().y/5;
-                break;
-        }
-
-        Projectile newProjectile(&projectileTexture, projectileSpawnPosition, projectileDirection, 500.0f);
-        newProjectile.setRotation(rotationAngle);  // Set the projectile's rotation
-        projectiles.push_back(newProjectile);
-    }
 
     // Move the player
     if (isMoving)
@@ -118,40 +119,22 @@ void Player::Update(float deltaTime)
         body.setTextureRect(animation.uvRect); 
     }
 
-    updateProjectiles(deltaTime);
+    if (currentWeapon) {
+        currentWeapon->updateProjectiles(deltaTime, window);
+    }
 }
 
 
 void Player::Draw(sf::RenderWindow& window)
 {
     window.draw(body);
-
-    // Draw projectiles
-    drawProjectiles(window);
-}
-
-void Player::drawProjectiles(sf::RenderWindow& window)
-{
-    for (auto& proj : projectiles)
-    {
-        proj.Draw(window);
+     if (currentWeapon) {
+        currentWeapon->drawProjectiles(window);
     }
 }
 
-void Player::updateProjectiles(float deltaTime)
-{
-    for (int i = 0; i < projectiles.size(); i++)
-    {
-        projectiles[i].Update(deltaTime);
-    }
 
-    // Remove projectiles that have expired or are out of bounds
-    projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(),
-                                     [](Projectile& p) { return p.getLifetime() <= 0; }),
-                      projectiles.end());
-}
-
-void Player::takeDamage(float damage)
+void Player::takeDamage(float damage) // should be enemy damage here
 {
     health -= damage;  // Decrease health by damage amount
     if (health < 0) {

@@ -46,9 +46,11 @@ int main() {
         while (window.pollEvent(evnt)) {
             if (evnt.type == sf::Event::Closed) window.close();
             if (evnt.type == sf::Event::Resized) ResizeView(window, view);
+            if (evnt.type == sf::Event::KeyPressed) {
+            if (evnt.key.code == sf::Keyboard::Space) {player.shoot(); }
         }
-
-        player.Update(deltaTime);
+        }
+        player.Update(deltaTime, window);
 
         Collider playerCollider = player.GetCollider();
 
@@ -67,3 +69,4 @@ int main() {
 
     return 0;
 }
+

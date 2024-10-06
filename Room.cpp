@@ -106,7 +106,16 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
 				playerCollider.checkCollision(wallCollider, 0.0f);
 				
 			}
-			// need to implement the collision between weapon and player    
+		for (auto it = weapons.begin(); it != weapons.end(); ) { //using iterator cus its better
+         Weapon* weapon = *it;  
+
+        if (player.GetCollider().checkCollision(weapon->GetCollider(), 0.0f)) {
+            player.equipWeapon(weapon); 
+            it = weapons.erase(it);     // Remove the weapon and update the iterator
+        } else {
+            it++; 
+        }
+    }  
 		}
 
         for (Weapon* weapon : weapons) {
@@ -133,9 +142,13 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
 
 void Room::spawnEnemies(){
     static sf::Texture enemyTexture;
-     if (!enemyTexture.loadFromFile("FastEnemy.png")) {
+    static bool enemyTextureLoaded = false;
+     if (!enemyTextureLoaded) {
+        if(!enemyTexture.loadFromFile("FastEnemy.png")){
         std::cerr << "Error loading FastEnemy texture!" << std::endl;
         return; // Exit the function if the texture fails to load
+        }
+        enemyTextureLoaded = true;
     }
 
         for (int i = 0; i < 3; i++) {

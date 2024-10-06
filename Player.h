@@ -5,7 +5,7 @@
 #include <vector>
 #include "Animation.h"
 #include "Collider.h"
-#include "Projectile.h"
+#include "Weapon.h"
 
 class Player
 {
@@ -13,17 +13,19 @@ public:
     Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed);
     ~Player();
 
-    void Update(float deltaTime);
+    void Update(float deltaTime,const sf::RenderWindow& window);
     void Draw(sf::RenderWindow& window);
 
     sf::Vector2f GetPosition() const { return body.getPosition(); }
     Collider GetCollider() { return Collider(body); }
 
-    void drawProjectiles(sf::RenderWindow& window);
-    void updateProjectiles(float deltaTime);
 
     void takeDamage(float damage);  // New method to take damage
     bool isAlive() const { return health > 0; }  // Check if player is still alive
+
+    void equipWeapon(Weapon* weapon);      
+    void switchWeapon(int index);        
+    void shoot(); 
     
 private:
     enum Direction { Up, Down, Left, Right };
@@ -37,9 +39,8 @@ private:
     float timeDelay;
     float health;  // Player health
 
-    // Store projectiles
-    sf::Texture projectileTexture;
-    std::vector<Projectile> projectiles;
+    std::vector<Weapon*> inventory;  
+    Weapon* currentWeapon; 
 };
 
 #endif

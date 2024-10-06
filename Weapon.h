@@ -10,7 +10,7 @@
 class Weapon {
 public:
     Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate, float damage);
-
+    virtual ~Weapon();
     
     virtual void fire(sf::Vector2f direction, sf::Vector2f startPosition) = 0;
     virtual float getDamage() const = 0;
@@ -26,8 +26,8 @@ public:
     void drawProjectiles(sf::RenderWindow& window);
 
     
-    Collider GetCollider(){
-        return Collider(body);
+    Collider& GetCollider(){
+        return collider;
     }
 
 protected:
@@ -36,6 +36,8 @@ protected:
     int maxAmmo;
     int currentAmmo;
     sf::RectangleShape body;
+
+    Collider collider;
 
     std::vector<Projectile> projectiles;  
     sf::Texture projectileTexture;        
