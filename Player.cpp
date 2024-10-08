@@ -29,14 +29,12 @@ Player::~Player() {
 
 void Player::equipWeapon(Weapon* weapon) {
     if (weapon) {
-        inventory.push_back(weapon);
-        std::cout << "Weapon is in to inventory." << std::endl; //text to check for now
-        if (currentWeapon == nullptr) {
+        std::cout << "Equipping new weapon" << std::endl;
             currentWeapon = weapon;  
-            std::cout << "Equipped weapon." << std::endl;
+            
         }
     }
-}
+
 
 void Player::shoot() {
     if (currentWeapon) {

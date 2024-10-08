@@ -45,6 +45,16 @@ void Room::generateWeapons(){
         }
         akTextureLoaded = true;
     }
+
+    static sf::Texture shotTexture;
+    static bool shotTextureLoaded = false;
+    if (!shotTextureLoaded) {
+        if (!shotTexture.loadFromFile("Shotgun.png")) {
+            std::cerr << "Error loading shotgun texture!" << std::endl; // debugging stuff just in case 
+            return; 
+        }
+        shotTextureLoaded = true;
+    }
     
     static sf::Texture projectileTex;
     static bool projectileTexLoaded = false;
@@ -56,12 +66,23 @@ void Room::generateWeapons(){
         projectileTexLoaded = true;
     }
         
-         for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
         float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1); 
         float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl; 
 
         Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex);
+        newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+        weapons.push_back(newWeapon);
+
+    }
+
+    for (int i = 0; i < 2; i++) {
+        float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1); 
+        float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl; 
+
+        Weapon* newWeapon = new SawedOff(&shotTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
 

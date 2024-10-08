@@ -43,7 +43,6 @@ private:
     float timeDelay;
     float health;  // Player health
 
-    std::vector<Weapon*> inventory;  
     Weapon* currentWeapon; 
 };
 

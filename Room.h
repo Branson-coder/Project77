@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Weapon.h"
 #include "AK47.h"
+#include "SawedOff.h"
 #include "FastEnemy.h"
 #include "TankyEnemy.h"
 #include "NormalEnemy.h"
