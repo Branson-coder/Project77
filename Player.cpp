@@ -42,6 +42,8 @@ void Player::shoot() {
     if (currentWeapon) {
         sf::Vector2f direction;
         sf::Vector2f playerPosition = body.getPosition();
+        sf::FloatRect playerBounds = body.getGlobalBounds();
+        sf::Vector2f playerSize(playerBounds.width, playerBounds.height);
 
         switch (facingDirection) {
             case Left:  direction = sf::Vector2f(-1.0f, 0.0f); break;
@@ -51,15 +53,25 @@ void Player::shoot() {
         }
 
         sf::Vector2f spawnPosition = playerPosition;
-        float offset = 25.0f;  // Half of player's size (50/2)
-
-        switch (facingDirection) {
-            case Left:  spawnPosition.x -= offset; break;
-            case Right: spawnPosition.x += offset; break;
-            case Up:    spawnPosition.y -= offset; break;
-            case Down:  spawnPosition.y += offset; break;
+        
+ switch (facingDirection) {
+            case Left:  
+                spawnPosition.x -= playerSize.x / 2; 
+                spawnPosition.y += playerSize.y / 2; 
+                break;
+            case Right: 
+                spawnPosition.x += playerSize.x / 2; 
+                spawnPosition.y -= playerSize.y / 2; 
+                break;
+            case Up:    
+                spawnPosition.x -= playerSize.x / 2; 
+                spawnPosition.y -= playerSize.y / 2;
+                break;
+            case Down:  
+                spawnPosition.x += playerSize.x / 2; 
+                spawnPosition.y += playerSize.y / 2;
+                break;
         }
-
         currentWeapon->fire(direction, spawnPosition);
     }
     else {
