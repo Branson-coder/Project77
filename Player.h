@@ -26,6 +26,10 @@ public:
     void equipWeapon(Weapon* weapon);      
     void switchWeapon(int index);        
     void shoot(); 
+
+    sf::Vector2f GetSize() const {
+    return body.getSize();
+    }
     
 private:
     enum Direction { Up, Down, Left, Right };

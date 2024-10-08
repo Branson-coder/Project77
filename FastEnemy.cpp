@@ -1,4 +1,5 @@
 #include "FastEnemy.h"
+#include <cmath>
 
 FastEnemy::FastEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime)
     : Enemy(texture, imageCount, 2.0f, 100.0f, 5.0f) {
@@ -10,40 +11,42 @@ FastEnemy::FastEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switch
 void FastEnemy::update(float deltaTime, const Player& player)
 {
 
-float xDif = player.GetPosition().x - body.getPosition().x;
-float yDif = player.GetPosition().y - body.getPosition().y;
-row = 0;
 
-movement = sf::Vector2f(0.0f, 0.0f);
+  // set the enemy's origin to its center
+  body.setOrigin(body.getSize() / 2.0f);  
+    // Get the player and enemy's center positions
+    sf::Vector2f playerCenter = player.GetPosition(); // get the player's center
+    sf::Vector2f enemyCenter = body.getPosition();    // get the enemy's center
 
-//up
-if (yDif < 0 && std::abs(yDif) > std::abs(xDif)) {
-  direction = sf::Vector2f(0.0f, -1.0f);
-  movement.y -= speed * deltaTime;
-  row = 3;
-		
-    }//right
-    else if (xDif > 0 && std::abs(xDif) > std::abs(yDif)) {
-        direction = sf::Vector2f(1.0f, 0.0f);
-        movement.x += speed * deltaTime;
-		row = 2;
-		
-    }//left
-    else if (xDif < 0 && std::abs(xDif) > std::abs(yDif)) {
-        direction = sf::Vector2f(-1.0f, 0.0f);
-        movement.x -= speed * deltaTime;
-		row = 1;
-		
-    }//down
-    else if (yDif > 0 && std::abs(yDif) > std::abs(xDif)) {
-        direction = sf::Vector2f(0.0f, 1.0f);
-        movement.y += speed * deltaTime;
-		row = 0;
-		
+    // the direction vector between the enemy's center and the player's center
+    sf::Vector2f directionToPlayer = playerCenter - enemyCenter;
+
+    // method to normalise a direction vector for movement
+    float length = std::sqrt(directionToPlayer.x * directionToPlayer.x + directionToPlayer.y * directionToPlayer.y);
+    if (length != 0) {
+        directionToPlayer /= length;
     }
 
-        animation.Update(row, deltaTime);
-        body.setTextureRect(animation.uvRect);
-        body.move(movement);
+    // movement is based on the normalized direction and speed
+    movement = directionToPlayer * speed * deltaTime;
+
+    // update the enemy's row (animation) based on the direction of movement
+    if (directionToPlayer.y < 0 && std::abs(directionToPlayer.y) > std::abs(directionToPlayer.x)) {
+        row = 3;  //  up
+    }
+    else if (directionToPlayer.x > 0 && std::abs(directionToPlayer.x) > std::abs(directionToPlayer.y)) {
+        row = 2;  //  right
+    }
+    else if (directionToPlayer.x < 0 && std::abs(directionToPlayer.x) > std::abs(directionToPlayer.y)) {
+        row = 1;  //  left
+    }
+    else if (directionToPlayer.y > 0 && std::abs(directionToPlayer.y) > std::abs(directionToPlayer.x)) {
+        row = 0;  //  down
+    }
+
+    // animation update and move the enemy
+    animation.Update(row, deltaTime);
+    body.setTextureRect(animation.uvRect);
+    body.move(movement);
 
 }
