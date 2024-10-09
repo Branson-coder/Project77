@@ -13,6 +13,7 @@ public:
     void effect() override;
 
     void Draw(sf::RenderWindow& window) override;
+    
 };
 
 #endif

@@ -43,3 +43,7 @@ void Weapon::drawProjectiles(sf::RenderWindow& window) {
         projectile.Draw(window);
     }
 }
+
+int Weapon::getAmmo() {
+    return currentAmmo;  // Return the current ammo count
+}

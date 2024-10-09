@@ -29,6 +29,7 @@ public:
     Collider& GetCollider(){
         return collider;
     }
+    int getAmmo();
 
 protected:
     float damage;

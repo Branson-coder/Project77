@@ -34,6 +34,11 @@ public:
     sf::Vector2f GetSize() const {
     return body.getSize();
     }
+
+    int getHealth();
+    int getAmmo();
+    int getScore();
+    std::string getWeapon();
     
 private:
     enum Direction { Up, Down, Left, Right };
@@ -45,7 +50,8 @@ private:
     float speed;
     bool isMoving;
     float timeDelay;
-    float health;  // Player health
+    int health;  // Player health
+    int score;
 
     Weapon* currentWeapon; 
     Heals* healInventory[5];  // Array of healing items

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Player.h"
+using namespace std;
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed)
     : animation(texture, imageCount, switchTime), currentWeapon(nullptr), healCount(0)
@@ -8,6 +9,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     row = 0;
     timeDelay = 0.0f;
     health = 100.0f;  // Initialize player's health
+    score = 0;
 
     body.setSize(sf::Vector2f(50.0f, 50.0f));
     body.setOrigin(body.getSize() / 2.0f);
@@ -190,3 +192,20 @@ void Player::useHeal() {
         std::cout << "No heals available in the inventory!" << std::endl;
     }
 }
+
+int Player::getHealth() { return health; }
+
+int Player::getAmmo()   {
+if (currentWeapon) {
+        return currentWeapon->getAmmo();  // Return ammo from the equipped weapon
+    } else {
+        return 0;  // No weapon equipped, return 0 ammo
+    }
+}
+
+int Player::getScore() { return score; }
+
+// std::string Player::getWeapon() 
+// { 
+//     return std::string(currentWeapon);
+// }
