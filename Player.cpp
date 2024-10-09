@@ -2,7 +2,7 @@
 #include "Player.h"
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed)
-    : animation(texture, imageCount, switchTime), currentWeapon(nullptr)
+    : animation(texture, imageCount, switchTime), currentWeapon(nullptr), healCount(0)
 {
     this->speed = speed;
     row = 0;
@@ -151,4 +151,42 @@ void Player::takeDamage(float damage) // should be enemy damage here
     }
 
     
+}
+
+bool Player::equipHeal(Heals* heal) {
+    if (healCount < 5) {  // Check if there is space in the inventory
+        healInventory[healCount] = heal;
+        healCount++;
+        std::cout << "Heals added to inventory. Current heal count: " << healCount << std::endl;
+        return true;  // Successfully equipped the heal
+    } else {
+        std::cout << "Cannot equip more heals" << std::endl;
+        return false;  // Inventory full, cannot equip the heal
+    }
+}
+
+void Player::useHeal() {
+    if (healCount > 0) {
+        if (health >= 100.0f) {
+            std::cout << "Health is already full! Cannot use heal." << std::endl;
+            return;
+        }
+
+        // Call the effect of the heal, and then heal the player directly
+        healInventory[healCount - 1]->effect();
+        
+        // Increase player's health by 20 (for example)
+        health += 20.0f;
+        if (health > 100.0f) {
+            health = 100.0f;  // Cap health at 100
+        }
+
+        // Remove the heal from the inventory
+        healInventory[healCount - 1] = nullptr;
+        healCount--;
+
+        std::cout << "Heals remaining: " << healCount << std::endl;
+    } else {
+        std::cout << "No heals available in the inventory!" << std::endl;
+    }
 }

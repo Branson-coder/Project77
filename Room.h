@@ -8,6 +8,7 @@
 #include "TankyEnemy.h"
 #include "NormalEnemy.h"
 #include <vector>
+#include "Item.h"
 #include "Heals.h"
 #include "Ammo.h"
 using namespace std;

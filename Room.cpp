@@ -102,7 +102,7 @@ void Room::generateHeals() {
         healTextureLoaded = true;
     }
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 6; i++) {
         float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
         float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
         std::cout << "Spawning health pack at: (" << x << ", " << y << ")" << std::endl;
@@ -148,10 +148,32 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
         for (Heals* healthPack : healthPacks) {
         healthPack->Draw(window);
         }
-    for (Enemy* enemy : enemies) {
+        for (Enemy* enemy : enemies) {
         enemy->update(deltaTime, player);
         enemy->draw(window); // Draw the enemy
        
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) { 
+        for (auto it = healthPacks.begin(); it != healthPacks.end();) {
+            Heals* healthPack = *it;
+
+        
+            if (player.GetPosition().x < healthPack->getPosition().x + 50 &&
+                player.GetPosition().x > healthPack->getPosition().x - 50 &&
+                player.GetPosition().y < healthPack->getPosition().y + 50 &&
+                player.GetPosition().y > healthPack->getPosition().y - 50) {
+                
+                
+                if (player.equipHeal(healthPack)) {
+                    it = healthPacks.erase(it); 
+                } else {
+                    break;
+                }
+            } else {
+                ++it;
+            }
+        }
     }
 }    
 	

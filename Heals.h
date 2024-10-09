@@ -10,7 +10,6 @@ public:
 
     // Override the effect function
     void effect() override;
-
 };
 
 #endif // HEALS_H

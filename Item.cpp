@@ -2,7 +2,7 @@
 
 // Constructor
 Item::Item(sf::Vector2f position, const std::string& type) 
-    : itemPosition(position), itemType(type), isPickedUp(false) 
+    : itemPosition(position), itemType(type), isPickedUp(false), collider(shape) 
 {
     shape.setSize(sf::Vector2f(30.0f, 30.0f)); // Set a default size for the item
     shape.setPosition(itemPosition); // Set the position of the shape

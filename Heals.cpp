@@ -12,8 +12,6 @@ Heals::Heals(sf::Vector2f position, sf::Texture* texture)
 
 
 // Override the effect function
-void Heals::effect() 
-{
-    // Implement healing effect, for example, restore player's health
-    std::cout << "Player healed!" << std::endl; 
+void Heals::effect() {
+    std::cout << "Healed by 20" << std::endl;
 }

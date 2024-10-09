@@ -13,7 +13,7 @@ SOURCES = main.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Proje
 OBJECTS = $(SOURCES:.cpp=.o)
 
 # ./game  (command in terminal to run game)
-EXECUTABLE = games
+EXECUTABLE = game
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(OBJECTS) -o $(EXECUTABLE) $(LDFLAGS)
