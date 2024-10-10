@@ -3,7 +3,7 @@
 
 // Constructor
 Shotgun::Shotgun(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
-    : Weapon(texture, size, 0.1f, 20.0f), spread(3), takeOff(10)
+    : Weapon(texture, size, 0.1f, 20.0f, "Shotgun"), spread(3), takeOff(10)
 {
     projectileTexture = *projectileTex;  
     maxAmmo = 90;  

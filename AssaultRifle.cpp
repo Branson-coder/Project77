@@ -3,7 +3,7 @@
 
 // Constructor
 AssaultRifle::AssaultRifle(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
-    : Weapon(texture, size, 0.1f, 20.0f), burstFireRounds(3)  
+    : Weapon(texture, size, 0.1f, 20.0f, "AK47"), burstFireRounds(3)  
 {
     projectileTexture = projectileTex;  
     maxAmmo = 90;  

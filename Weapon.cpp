@@ -1,51 +1,50 @@
 #include "Weapon.h"
+
 #include "Collider.h"
 #include "Projectile.h"
 
-Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate, float damage)
-    : damage(damage), fireRate(fireRate), maxAmmo(30), currentAmmo(maxAmmo), collider(body)  // Example values
-{
-    body.setSize(size);
-    body.setTexture(texture);
-    body.setOrigin(size / 2.0f);
+Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate,
+               float damage, const std::string& name)
+    : damage(damage),
+      fireRate(fireRate),
+      maxAmmo(30),
+      currentAmmo(maxAmmo),
+      collider(body),
+      weaponName(name) {
+  body.setSize(size);
+  body.setTexture(texture);
+  body.setOrigin(size / 2.0f);
 }
 
-Weapon::~Weapon(){
-    
-}
-sf::RectangleShape Weapon::getBody() const {
-    return body;
-}
+Weapon::~Weapon() {}
+sf::RectangleShape Weapon::getBody() const { return body; }
 
+void Weapon::setPosition(sf::Vector2f position) { body.setPosition(position); }
 
-void Weapon::setPosition(sf::Vector2f position) {
-    body.setPosition(position);
-}
-
-
-
-void Weapon::updateProjectiles(float deltaTime, const sf::RenderWindow& window) {
-    (void)window;
-    for (size_t i = 0; i < projectiles.size(); ++i) {
-        projectiles[i].Update(deltaTime);
-    }
+void Weapon::updateProjectiles(float deltaTime,
+                               const sf::RenderWindow& window) {
+  (void)window;
+  for (size_t i = 0; i < projectiles.size(); ++i) {
+    projectiles[i].Update(deltaTime);
+  }
 }
 
-void Weapon:: Draw(sf::RenderWindow& window){
-    window.draw(body);
-}
+void Weapon::Draw(sf::RenderWindow& window) { window.draw(body); }
 
 void Weapon::drawProjectiles(sf::RenderWindow& window) {
-   for (size_t i = 0; i < projectiles.size(); i++)
-	{
-		projectiles[i].Draw(window);
-	}
+  for (size_t i = 0; i < projectiles.size(); i++) {
+    projectiles[i].Draw(window);
+  }
 }
 
 int Weapon::getAmmo() {
-    return currentAmmo;  // Return the current ammo count
+  return currentAmmo;  // Return the current ammo count
 }
 
-sf::Vector2f Weapon::getPosition() const {
-    return body.getPosition();
+sf::Vector2f Weapon::getPosition() const { return body.getPosition(); }
+
+
+//  method to get weapon name
+std::string Weapon::getName() const {
+  return weaponName;  // Return the weapon name
 }

@@ -6,10 +6,11 @@
 #include <vector>
 #include "Projectile.h"
 #include "Collider.h"  
+#include <string>
 
 class Weapon {
 public:
-    Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate, float damage);
+    Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate, float damage, const std::string& name); 
     virtual ~Weapon();
     
     virtual void fire(sf::Vector2f direction, sf::Vector2f startPosition) = 0;
@@ -34,6 +35,8 @@ public:
     }
     int getAmmo();
     sf::Vector2f getPosition() const; 
+    std::string getName() const;  //  method to get weapon name
+
 
 protected:
     float damage;
@@ -44,6 +47,7 @@ protected:
 
     Collider collider;
 
+    std::string weaponName;
       
     sf::Texture projectileTexture;        
 };
