@@ -49,8 +49,8 @@ void Room::generateWeapons(){
     static sf::Texture shotTexture;
     static bool shotTextureLoaded = false;
     if (!shotTextureLoaded) {
-        if (!shotTexture.loadFromFile("Shotgun.png")) {
-            std::cerr << "Error loading shotgun texture!" << std::endl; // debugging stuff just in case 
+        if (!shotTexture.loadFromFile("SawedOff.png")) {
+            std::cerr << "Error loading Sawed Off texture!" << std::endl; // debugging stuff just in case 
             return; 
         }
         shotTextureLoaded = true;
