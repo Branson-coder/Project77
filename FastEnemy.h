@@ -9,6 +9,7 @@ public:
     FastEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);  // Higher speed, lower health
 
     void update(float deltaTime, const Player& player) override;
+
 };
 
 #endif 

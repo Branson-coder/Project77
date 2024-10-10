@@ -184,7 +184,7 @@ for (auto it = weapons.begin(); it != weapons.end(); ) {
 
         if (enemyCollider.checkCollision(playerCollider, 0.4f))
 		{
-			
+			player.takeDamage(enemies[i]->getDamage());
 		}
     
         Weapon* playerWeapon = player.getCurrentWeapon(); 
@@ -194,6 +194,10 @@ for (auto it = weapons.begin(); it != weapons.end(); ) {
             Collider projectileCollider = projectiles[j].GetCollider(); 
             if (projectileCollider.checkCollision(enemyCollider, 0.1f)) {
                 projectiles.erase(projectiles.begin() + j);
+                enemies[i]->takeDamage(playerWeapon->getDamage());
+                if(enemies[i]->getHealth() == 0){
+                    enemies.erase(enemies.begin() + i);
+                }
             }
             }
 

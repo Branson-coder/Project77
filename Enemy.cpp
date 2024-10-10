@@ -4,7 +4,6 @@
 
 #include "Enemy.h"
 #include <iostream>
-
 //constructor for enemy class
 Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime,
              float health, float speed)
@@ -13,6 +12,7 @@ Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime,
   body.setOrigin(body.getSize() / 2.0f);
   body.setTexture(texture);
   faceRight = true;
+  health = 100;
 }
 //nothing in this update class as it will be modified in the derived classes
 void Enemy::update(float deltaTime, const Player& player) {}
