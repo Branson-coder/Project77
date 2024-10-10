@@ -10,6 +10,7 @@ class Shotgun : public Weapon{
 
     protected:
     int spread;
+    int takeOff;
 };
 
 #endif

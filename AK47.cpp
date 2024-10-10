@@ -20,7 +20,7 @@ void AK47::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
             newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
             projectiles.push_back(newProjectile);
             
-        currentAmmo -= 1;
+        currentAmmo -= 4;
         
         std::cout << "AK-47 fired " << burstFireRounds << " rounds. Number of projectiles now: " << projectiles.size() << std::endl;
         

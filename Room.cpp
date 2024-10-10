@@ -190,22 +190,41 @@ for (auto it = weapons.begin(); it != weapons.end(); ) {
         Weapon* playerWeapon = player.getCurrentWeapon(); 
         if(playerWeapon != nullptr){
         std::vector<Projectile>& projectiles = playerWeapon->getProjectiles();
+        
             for (size_t j = 0; j < projectiles.size(); j++) {
             Collider projectileCollider = projectiles[j].GetCollider(); 
-            if (projectileCollider.checkCollision(enemyCollider, 0.1f)) {
+
+            for (int x = 0; x < maxSize.x; x++){
+		        for (int y = 0; y < maxSize.y; y++){
+			if (layout[x][y].getColliderState() == true)
+			{	
+				Collider wallCollider = layout[x][y].GetCollider();
+				if(projectileCollider.checkCollision(wallCollider, 0.0f)){
+                projectiles.erase(projectiles.begin() + j);
+                }
+				
+			}
+		  
+		}
+                
+            } 
+    
+            if (projectileCollider.checkCollision(enemyCollider, 0.2f)) {
                 projectiles.erase(projectiles.begin() + j);
                 enemies[i]->takeDamage(playerWeapon->getDamage());
+
                 if(enemies[i]->getHealth() == 0){
                     enemies.erase(enemies.begin() + i);
                 }
             }
-            }
-
-        
         }
 
+        
     }
-    }
+
+}
+}
+
 
     
 

@@ -5,11 +5,11 @@
 SawedOff::SawedOff(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
     : Shotgun(texture, size, projectileTex)
 {
-    spread = 5;  // AK-47 fires 5 rounds per burst somehow visually
-    damage = 25.0f;        
-    fireRate = 0.08f;      
+    spread = 3;  // AK-47 fires 5 rounds per burst somehow visually
+    damage = 5.0f;          
     maxAmmo = 120;         
     currentAmmo = maxAmmo;
+    takeOff = 10;
 }
 
 void SawedOff::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
@@ -43,7 +43,7 @@ void SawedOff::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
 
         
         
-        currentAmmo -= spread;
+        currentAmmo -= takeOff;
         
     } else {
         std::cout << "Not enough ammo to fire burst." << std::endl;
