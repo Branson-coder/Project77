@@ -71,7 +71,7 @@ void Room::generateWeapons(){
         float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl; 
 
-        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex);
+        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 50.0f), projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
 
@@ -129,16 +129,7 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
 				playerCollider.checkCollision(wallCollider, 0.0f);
 				
 			}
-		for (auto it = weapons.begin(); it != weapons.end(); ) { //using iterator cus its better
-         Weapon* weapon = *it;  
-
-        if (player.GetCollider().checkCollision(weapon->GetCollider(), 0.0f)) {
-            player.equipWeapon(weapon); 
-            it = weapons.erase(it);     // Remove the weapon and update the iterator
-        } else {
-            it++; 
-        }
-    }  
+		  
 		}
 
         for (Weapon* weapon : weapons) {
@@ -175,9 +166,45 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
             }
         }
     }
-}    
-	
 }
+
+for (auto it = weapons.begin(); it != weapons.end(); ) { 
+         Weapon* weapon = *it;  
+
+        if (player.GetCollider().checkCollision(weapon->GetCollider(), 0.0f)) {
+            player.equipWeapon(weapon); 
+            it = weapons.erase(it);     
+        } else {
+            it++; 
+        }
+    }
+
+    for( size_t i = 0; i < enemies.size(); i++){
+        Collider enemyCollider = enemies[i] ->GetCollider();
+
+        if (enemyCollider.checkCollision(playerCollider, 0.4f))
+		{
+			
+		}
+    
+        Weapon* playerWeapon = player.getCurrentWeapon(); 
+        if(playerWeapon != nullptr){
+        std::vector<Projectile> projectiles = playerWeapon->getProjectiles();
+            for (size_t j = 0; j < projectiles.size(); j++) {
+            Collider projectileCollider = projectiles[j].GetCollider(); // Get the projectile's collider
+
+            if (projectileCollider.checkCollision(enemyCollider, 0.01f)) {
+            }
+            }
+
+        
+        }
+
+    }
+    }
+
+    
+
 
 
 void Room::spawnFastEnemies(){

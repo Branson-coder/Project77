@@ -2,19 +2,20 @@
 #include <cmath>
 
 // Constructor
-AssaultRifle::AssaultRifle(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
+AssaultRifle::AssaultRifle(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
     : Weapon(texture, size, 0.1f, 20.0f), burstFireRounds(3)  
 {
-    projectileTexture = *projectileTex;  
+    projectileTexture = projectileTex;  
     maxAmmo = 90;  
     currentAmmo = maxAmmo;
 }
 
 // Fire method implementation
 void AssaultRifle::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
+    sf::Vector2f projectileSize(50.0f, 50.0f);
     if (currentAmmo >= burstFireRounds) {
         for (int i = 0; i < burstFireRounds; ++i) {
-            Projectile newProjectile(&projectileTexture, startPosition, direction, 700.0f);  
+            Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction, 700.0f);  
             newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
             projectiles.push_back(newProjectile);
         }

@@ -2,10 +2,10 @@
 #include <cmath>
 
 // Constructor
-AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
+AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
     : AssaultRifle(texture, size, projectileTex)
 {
-    burstFireRounds = 5;  // AK-47 fires 5 rounds per burst somehow visually
+    burstFireRounds = 1;  // AK-47 fires 5 rounds per burst somehow visually
     damage = 25.0f;        
     fireRate = 0.08f;      
     maxAmmo = 120;         
@@ -13,14 +13,17 @@ AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
 }
 
 void AK47::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
+    sf::Vector2f projectileSize(70.0f, 70.0f);
     if (currentAmmo >= burstFireRounds) {
         for (int i = 0; i < burstFireRounds; ++i) {
-            Projectile newProjectile(&projectileTexture, startPosition, direction, 800.0f);  
+            Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction,  800.0f);  
             newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
             projectiles.push_back(newProjectile);
+            
         }
         currentAmmo -= burstFireRounds;
-        std::cout << "AK-47 fired " << burstFireRounds << " rounds. Ammo left: " << currentAmmo << std::endl;
+        std::cout << "AK-47 fired " << burstFireRounds << " rounds. Number of projectiles now: " << projectiles.size() << std::endl;
+        
     } else {
         std::cout << "Not enough ammo to fire burst." << std::endl;
     }

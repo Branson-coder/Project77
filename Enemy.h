@@ -39,7 +39,9 @@ public:
     float getHealth() const { return health; }
     
     // For collision handling
-    Collider getCollider() { return Collider(body); }
+     Collider GetCollider(){
+        return Collider(body);
+    }
 
     //controls whether enemy is alive or not
     bool isAlive() const { return health > 0; }

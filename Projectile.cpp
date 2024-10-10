@@ -1,13 +1,12 @@
 #include "Projectile.h"
 #include <cmath>
 
-Projectile::Projectile(sf::Texture* texture, sf::Vector2f startPosition, sf::Vector2f direction, float speed)
-{
+Projectile::Projectile(sf::Texture* texture, sf::Vector2f startPosition, sf::Vector2f size, sf::Vector2f direction, float speed){
     this->speed = speed;
     this->lifetime = 500;  // Set a default lifetime for the projectile
-    body.setTexture(*texture);
+    body.setTexture(texture);
     body.setPosition(startPosition);
-    body.setScale(0.05f, 0.05f);  // Scale down the texture if it's too large
+    body.setSize(size);  // Scale down the texture if it's too large
 
     // Normalize direction to ensure consistent speed
     float magnitude = sqrt(direction.x * direction.x + direction.y * direction.y);

@@ -37,7 +37,6 @@ void Player::equipWeapon(Weapon* weapon) {
         }
     }
 
-
 void Player::shoot() {
     if (currentWeapon) {
         sf::Vector2f direction;
@@ -77,6 +76,10 @@ void Player::shoot() {
     else {
         std::cout << "No weapon equipped!" << std::endl;
     }
+}
+
+Weapon* Player:: getCurrentWeapon(){
+    return currentWeapon;
 }
 
 void Player::Update(float deltaTime, const sf::RenderWindow& window)

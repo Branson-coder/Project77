@@ -13,9 +13,10 @@ SawedOff::SawedOff(sf::Texture* texture, sf::Vector2f size, sf::Texture* project
 }
 
 void SawedOff::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
+    sf::Vector2f projectileSize(50.0f, 50.0f);
     if (currentAmmo >= spread) {
         for (int i = 0; i < spread; ++i) {
-            Projectile newProjectile(&projectileTexture, startPosition, direction, 800.0f);  
+            Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction, 800.0f);  
             newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
             projectiles.push_back(newProjectile);
         }
