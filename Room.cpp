@@ -168,16 +168,25 @@ void Room::Display(sf::RenderWindow & window, Collider playerCollider, Player &p
     }
 }
 
-for (auto it = weapons.begin(); it != weapons.end(); ) { 
-         Weapon* weapon = *it;  
+if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) { // Key 'E' for weapon pickup
+    for (auto it = weapons.begin(); it != weapons.end();) {
+        Weapon* weapon = *it;
 
-        if (player.GetCollider().checkCollision(weapon->GetCollider(), 0.0f)) {
-            player.equipWeapon(weapon); 
-            it = weapons.erase(it);     
+        // Check if the player is within a certain range of the weapon
+        if (player.GetPosition().x < weapon->getPosition().x + 50 &&
+            player.GetPosition().x > weapon->getPosition().x - 50 &&
+            player.GetPosition().y < weapon->getPosition().y + 50 &&
+            player.GetPosition().y > weapon->getPosition().y - 50) {
+
+            // Equip the weapon
+            player.equipWeapon(weapon);
+            it = weapons.erase(it); // Remove the weapon from the map after picking it up
+            std::cout << "Weapon collected!" << std::endl;
         } else {
-            it++; 
+            ++it; // Move to the next weapon if no action is performed
         }
     }
+}
 
     for( size_t i = 0; i < enemies.size(); i++){
         Collider enemyCollider = enemies[i] ->GetCollider();

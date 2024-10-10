@@ -45,3 +45,7 @@ void Weapon::drawProjectiles(sf::RenderWindow& window) {
 int Weapon::getAmmo() {
     return currentAmmo;  // Return the current ammo count
 }
+
+sf::Vector2f Weapon::getPosition() const {
+    return body.getPosition();
+}

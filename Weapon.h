@@ -33,6 +33,7 @@ public:
         return collider;
     }
     int getAmmo();
+    sf::Vector2f getPosition() const; 
 
 protected:
     float damage;
