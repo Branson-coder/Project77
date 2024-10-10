@@ -134,7 +134,7 @@ void Player::Update(float deltaTime, const sf::RenderWindow& window)
     }
 
     if (currentWeapon) {
-        currentWeapon->updateProjectiles(deltaTime);
+        currentWeapon->updateProjectiles(deltaTime, window);
     }
 }
 

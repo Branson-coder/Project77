@@ -24,7 +24,8 @@ void Weapon::setPosition(sf::Vector2f position) {
 
 
 
-void Weapon::updateProjectiles(float deltaTime) {
+void Weapon::updateProjectiles(float deltaTime, const sf::RenderWindow& window) {
+    (void)window;
     for (size_t i = 0; i < projectiles.size(); ++i) {
         projectiles[i].Update(deltaTime);
     }

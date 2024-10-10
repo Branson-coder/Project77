@@ -193,8 +193,7 @@ for (auto it = weapons.begin(); it != weapons.end(); ) {
             for (size_t j = 0; j < projectiles.size(); j++) {
             Collider projectileCollider = projectiles[j].GetCollider(); // Get the projectile's collider
 
-            if (projectileCollider.checkCollision(enemyCollider, 0.02f)) {
-                std::cout << "it works" << std::endl;
+            if (projectileCollider.checkCollision(enemyCollider, 0.01f)) {
             }
             }
 

@@ -22,7 +22,7 @@ public:
     void setPosition(sf::Vector2f position);
 
     
-    void updateProjectiles(float deltaTime);
+    void updateProjectiles(float deltaTime, const sf::RenderWindow& window);
     void drawProjectiles(sf::RenderWindow& window);
     std::vector<Projectile> getProjectiles()
 	{
