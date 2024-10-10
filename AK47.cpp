@@ -14,14 +14,14 @@ AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
 
 void AK47::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
     sf::Vector2f projectileSize(70.0f, 70.0f);
-    if (currentAmmo >= burstFireRounds) {
-        for (int i = 0; i < burstFireRounds; ++i) {
+    if (currentAmmo > 0) {
+        
             Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction,  800.0f);  
             newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
             projectiles.push_back(newProjectile);
             
-        }
-        currentAmmo -= burstFireRounds;
+        currentAmmo -= 1;
+        
         std::cout << "AK-47 fired " << burstFireRounds << " rounds. Number of projectiles now: " << projectiles.size() << std::endl;
         
     } else {

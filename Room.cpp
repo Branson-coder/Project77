@@ -189,11 +189,11 @@ for (auto it = weapons.begin(); it != weapons.end(); ) {
     
         Weapon* playerWeapon = player.getCurrentWeapon(); 
         if(playerWeapon != nullptr){
-        std::vector<Projectile> projectiles = playerWeapon->getProjectiles();
+        std::vector<Projectile>& projectiles = playerWeapon->getProjectiles();
             for (size_t j = 0; j < projectiles.size(); j++) {
-            Collider projectileCollider = projectiles[j].GetCollider(); // Get the projectile's collider
-
-            if (projectileCollider.checkCollision(enemyCollider, 0.01f)) {
+            Collider projectileCollider = projectiles[j].GetCollider(); 
+            if (projectileCollider.checkCollision(enemyCollider, 0.1f)) {
+                projectiles.erase(projectiles.begin() + j);
             }
             }
 
