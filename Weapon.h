@@ -22,10 +22,13 @@ public:
     void setPosition(sf::Vector2f position);
 
     
-    void updateProjectiles(float deltaTime, const sf::RenderWindow& window);
+    void updateProjectiles(float deltaTime);
     void drawProjectiles(sf::RenderWindow& window);
-
-    
+    std::vector<Projectile> getProjectiles()
+	{
+		return projectiles;
+	}
+    std::vector<Projectile> projectiles;
     Collider& GetCollider(){
         return collider;
     }
@@ -40,7 +43,7 @@ protected:
 
     Collider collider;
 
-    std::vector<Projectile> projectiles;  
+      
     sf::Texture projectileTexture;        
 };
 

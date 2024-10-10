@@ -38,7 +38,9 @@ public:
     float getHealth() const { return health; }
     
     // For collision handling
-    Collider getCollider() { return Collider(body); }
+     Collider GetCollider(){
+        return Collider(body);
+    }
 
 
     void setPosition(sf::Vector2f position) {

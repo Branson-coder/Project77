@@ -24,13 +24,9 @@ void Weapon::setPosition(sf::Vector2f position) {
 
 
 
-void Weapon::updateProjectiles(float deltaTime, const sf::RenderWindow& window) {
+void Weapon::updateProjectiles(float deltaTime) {
     for (size_t i = 0; i < projectiles.size(); ++i) {
         projectiles[i].Update(deltaTime);
-        if (projectiles[i].isOffScreen(window) || projectiles[i].getLifetime() <= 0) {
-            projectiles.erase(projectiles.begin() + i);
-            --i;
-        }
     }
 }
 
@@ -39,9 +35,10 @@ void Weapon:: Draw(sf::RenderWindow& window){
 }
 
 void Weapon::drawProjectiles(sf::RenderWindow& window) {
-    for (auto& projectile : projectiles) {
-        projectile.Draw(window);
-    }
+   for (size_t i = 0; i < projectiles.size(); i++)
+	{
+		projectiles[i].Draw(window);
+	}
 }
 
 int Weapon::getAmmo() {

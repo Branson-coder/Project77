@@ -20,10 +20,11 @@ public:
 
     sf::Vector2f GetPosition() const { return body.getPosition(); }
     Collider GetCollider() { return Collider(body); }
-
+    
 
     void takeDamage(float damage);  // New method to take damage
     bool isAlive() const { return health > 0; }  // Check if player is still alive
+    Weapon* getCurrentWeapon();
 
     void equipWeapon(Weapon* weapon);      
     void switchWeapon(int index);        
@@ -43,16 +44,14 @@ public:
 private:
     enum Direction { Up, Down, Left, Right };
     Direction facingDirection;
-
     sf::RectangleShape body;
     Animation animation;
     unsigned int row;
     float speed;
     bool isMoving;
     float timeDelay;
-    int health;  // Player health
+    float health;  // Player health
     int score;
-
     Weapon* currentWeapon; 
     Heals* healInventory[5];  // Array of healing items
     int healCount;  // Number of heals currently in inventory 
