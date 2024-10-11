@@ -233,6 +233,7 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) { // Key 'E' for weapon pickup
                 // If enemy dies, erase the enemy
                 if (enemies[i]->getHealth() == 0) {
                     enemies.erase(enemies.begin() + i);
+                    player.increaseScore();
                     break;  // Exit this enemy loop after erasing
                 }
 
