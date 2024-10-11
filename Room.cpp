@@ -188,54 +188,69 @@ if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) { // Key 'E' for weapon pickup
     }
 }
 
-    for( size_t i = 0; i < enemies.size(); i++){
-        Collider enemyCollider = enemies[i] ->GetCollider();
+    for (size_t i = 0; i < enemies.size();) {
+    Collider enemyCollider = enemies[i]->GetCollider();
 
-        if (enemyCollider.checkCollision(playerCollider, 0.4f))
-		{
-			player.takeDamage(enemies[i]->getDamage());
-		}
-    
-        Weapon* playerWeapon = player.getCurrentWeapon(); 
-        if(playerWeapon != nullptr){
-        std::vector<Projectile>& projectiles = playerWeapon->getProjectiles();
-        
-            for (size_t j = 0; j < projectiles.size(); j++) {
-            Collider projectileCollider = projectiles[j].GetCollider(); 
-
-            for (int x = 0; x < maxSize.x; x++){
-		        for (int y = 0; y < maxSize.y; y++){
-			if (layout[x][y].getColliderState() == true)
-			{	
-				Collider wallCollider = layout[x][y].GetCollider();
-				if(projectileCollider.checkCollision(wallCollider, 0.0f)){
-                projectiles.erase(projectiles.begin() + j);
-                }
-				
-			}
-		  
-		}
-                
-            } 
-    
-            if (projectileCollider.checkCollision(enemyCollider, 0.2f)) {
-                projectiles.erase(projectiles.begin() + j);
-                enemies[i]->takeDamage(playerWeapon->getDamage());
-
-                if(enemies[i]->getHealth() == 0){
-                    enemies.erase(enemies.begin() + i);
-                }
-            }
-        }
-
-        
+    // Check collision with the player
+    if (enemyCollider.checkCollision(playerCollider, 0.4f)) {
+        player.takeDamage(enemies[i]->getDamage());
     }
 
-}
+    Weapon* playerWeapon = player.getCurrentWeapon(); 
+    if (playerWeapon != nullptr) {
+        std::vector<Projectile>& projectiles = playerWeapon->getProjectiles();
+        
+        // Iterate through projectiles
+        for (size_t j = 0; j < projectiles.size();) {
+            Collider projectileCollider = projectiles[j].GetCollider();
+
+            // Wall collision check
+            bool collidedWithWall = false;
+            for (int x = 0; x < maxSize.x; x++) {
+                for (int y = 0; y < maxSize.y; y++) {
+                    if (layout[x][y].getColliderState() == true) {	
+                        Collider wallCollider = layout[x][y].GetCollider();
+                        if (projectileCollider.checkCollision(wallCollider, 0.0f)) {
+                            // Erase projectile if it hits a wall
+                            projectiles.erase(projectiles.begin() + j);
+                            collidedWithWall = true;
+                            break;  // Break inner loops once a collision is detected
+                        }
+                    }
+                }
+                if (collidedWithWall) break;
+            }
+
+            // If we erased the projectile, skip incrementing j (since vector shrinks)
+            if (collidedWithWall) continue;
+
+            // Enemy collision check
+            if (projectileCollider.checkCollision(enemyCollider, 0.2f)) {
+                // Projectile hits enemy
+                projectiles.erase(projectiles.begin() + j);  // Erase projectile
+                enemies[i]->takeDamage(playerWeapon->getDamage());
+
+                // If enemy dies, erase the enemy
+                if (enemies[i]->getHealth() == 0) {
+                    enemies.erase(enemies.begin() + i);
+                    break;  // Exit this enemy loop after erasing
+                }
+
+                // If projectile was erased, skip incrementing j
+                continue;
+            }
+
+            // Increment j only if no erasures occurred
+            ++j;
+        }
+    }
+
+    // Increment i only if no enemies were erased
+    ++i;
 }
 
+}
 
-    
 
 
 
