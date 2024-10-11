@@ -23,7 +23,7 @@ Room::Room(sf::Texture* texture, sf::Vector2f position, int roomType)
           layout[x].push_back(
               Wall(nullptr, sf::Vector2f(100.0f, 100.f),
                    position + sf::Vector2f(100.0f * x, 100.0f * y),
-                   sf::Color::Transparent, false));
+                   sf::Color::Black, false));
         }
       }
     }
@@ -104,7 +104,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon = new SawedOff(
-            &shotTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex, "Sawed Off");
+            &shotTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex, "Sawed Off");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -119,7 +119,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon =
-            new M16(&M16Texture, sf::Vector2f(50.0f, 50.0f), projectileTex, "M16");
+            new M16(&M16Texture, sf::Vector2f(50.0f, 30.0f), projectileTex, "M16");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -375,7 +375,7 @@ void Room::spawnNormalEnemies() {
     normalEnemyTextureLoaded = true;
   }
 
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 1; i++) {
     float x = static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
     float y = static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
     std::cout << "Spawning normal enemy at: (" << x << ", " << y << ")"

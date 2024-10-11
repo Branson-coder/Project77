@@ -18,6 +18,7 @@ private:
     sf::Text ammoText; // Ammo text
     sf::Text scoreText; // Score text
     sf::Text weaponText; //weapon text
+    sf::Text healthPotionText; //health potion text
 };
 
 #endif // HUD_H

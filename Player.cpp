@@ -11,7 +11,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
     health = 100.0f;  // Initialize player's health
     score = 0;
 
-    body.setSize(sf::Vector2f(50.0f, 50.0f));
+    body.setSize(sf::Vector2f(70.0f, 70.0f));
     body.setOrigin(body.getSize() / 2.0f);
     body.setPosition(206.0f, 206.0f);
     body.setTexture(texture);
@@ -169,6 +169,8 @@ bool Player::equipHeal(Heals* heal) {
         return false;  // Inventory full, cannot equip the heal
     }
 }
+
+int Player::getHealthPotionCount() { return healCount; }
 
 float Player::getHealth() const {
     return health;

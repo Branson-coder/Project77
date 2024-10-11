@@ -6,7 +6,7 @@ Heals::Heals(sf::Vector2f position, sf::Texture* texture)
     : Item(position, "Healing Item") // Call base class constructor
 {
     shape.setTexture(texture); 
-    shape.setSize(sf::Vector2f(60.0f, 60.0f)); 
+    shape.setSize(sf::Vector2f(50.0f, 50.0f)); 
     shape.setPosition(position); 
 }
 
@@ -15,3 +15,4 @@ Heals::Heals(sf::Vector2f position, sf::Texture* texture)
 void Heals::effect() {
     std::cout << "Healed by 20" << std::endl;
 }
+

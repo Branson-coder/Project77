@@ -46,6 +46,7 @@ public:
     
     float getHealth() const;
     void setHealth(float health);
+    int getHealthPotionCount();
     
 private:
     enum Direction { Up, Down, Left, Right };

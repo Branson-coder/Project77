@@ -2,7 +2,7 @@
 #include <cmath>
 
 NormalEnemy::NormalEnemy(sf::Texture* texture, sf::Vector2u imageCount,
-                         float switchTime) : Enemy(texture, imageCount, 2.0f, 150.0f, 0.2f)
+                         float switchTime) : Enemy(texture, imageCount, 2.0f, 150.0f, 2.0f)
 {
     body.setSize(sf::Vector2f(75.0f, 75.0f)); // Set the size of the enemy
     body.setTexture(texture); // Set the texture

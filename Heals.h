@@ -4,6 +4,7 @@
 #include "Item.h"
 
 class Heals : public Item {
+
 public:
     // Constructor
     Heals(sf::Vector2f position, sf::Texture* texture);
@@ -11,5 +12,6 @@ public:
     // Override the effect function
     void effect() override;
 };
+
 
 #endif // HEALS_H

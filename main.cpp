@@ -84,8 +84,8 @@ int main() {
                 player =
                     Player(&playerTexture, sf::Vector2u(4, 4), 0.2f, 200.0f);
 
-                if (!wallTexture.loadFromFile("wall_texture.jpeg")) {
-                  std::cerr << "Error loading wall_texture.jpeg" << std::endl;
+                if (!wallTexture.loadFromFile("Wall.png")) {
+                  std::cerr << "Error loading wall texture" << std::endl;
                   return -1;
                 }
                 room = Room(&wallTexture, sf::Vector2f(0.0f, 0.0f), 1);
@@ -134,7 +134,7 @@ int main() {
                         gameWindow.getSize().x / 2.75f,
                         gameWindow.getSize().y / 2.2f);  // Center the view
 
-                    gameWindow.clear(sf::Color(150, 150, 150));
+                    gameWindow.clear(sf::Color::Black);
                     gameWindow.setView(view);
                     room.update();
                     room.Display(gameWindow, playerCollider, player, deltaTime);

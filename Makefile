@@ -24,3 +24,6 @@ $(EXECUTABLE): $(OBJECTS)
 # this cleans up build files
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)
+
+# for debugging, copy paste this code:
+# g++ -g main.cpp Menu.cpp Animation.cpp Wall.cpp Collider.cpp Player.cpp Room.cpp Projectile.cpp Weapon.cpp AssaultRifle.cpp AK47.cpp M16.cpp Shotgun.cpp SawedOff.cpp Enemy.cpp FastEnemy.cpp Item.cpp Heals.cpp TankyEnemy.cpp NormalEnemy.cpp HUD.cpp -lsfml-graphics -lsfml-window -lsfml-system -o debug
