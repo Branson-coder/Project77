@@ -127,7 +127,7 @@ void Room::generateHeals() {
 
 Room::~Room() {}
 
-void Room::update(float deltaTime) {
+void Room::update() {
   // Update enemy spawning
   if (enemySpawnClock.getElapsedTime() >= spawnInterval) {
     int randomEnemyType = rand() % 3;  // rand choose an enemy type
