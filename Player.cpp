@@ -193,10 +193,6 @@ void Player::useHeal() {
             std::cout << "Health is already full! Cannot use heal." << std::endl;
             return;
         }
-
-        
-        healInventory[healCount - 1];
-
         
         float newHealth = getHealth() + 20.0f;
         setHealth(newHealth);

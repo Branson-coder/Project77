@@ -13,6 +13,7 @@
 #include "TankyEnemy.h"
 #include "Wall.h"
 #include "Weapon.h"
+#include "LaserGun.h"
 using namespace std;
 
 class Room {

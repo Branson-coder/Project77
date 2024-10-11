@@ -75,8 +75,32 @@ void Room::generateWeapons() {
     projectileTexLoaded = true;
   }
 
+  static sf::Texture laserGunTexture;
+  static bool laserTextureLoaded = false;
+  if (!laserTextureLoaded) {
+    if (!laserGunTexture.loadFromFile("LaserGun.png")) {
+      std::cerr << "Error loading laser gun texture!"
+                << std::endl;  // debugging stuff just in case
+      return;
+    }
+    laserTextureLoaded = true;
+  }
+
+  static sf::Texture laserTex;  // Texture for the laser beam
+  static bool laserTexLoaded =
+      false;  // Flag to check if the laser texture is loaded
+
+  if (!laserTexLoaded) {
+    if (!laserTex.loadFromFile(
+            "Laser.png")) {  // Ensure you have the correct file name and path
+      std::cerr << "Error loading laser texture!" << std::endl;
+      return;
+    }
+    laserTexLoaded = true;  // Set the flag to true once loaded
+  }
+
   int randomWeaponType =
-      rand() % 3;  // change to more once laser gun is implemented
+      rand() % 4;  // change to more once laser gun is implemented
   switch (randomWeaponType) {
     case 0:
       for (int i = 0; i < 1; i++) {
@@ -120,6 +144,21 @@ void Room::generateWeapons() {
 
         Weapon* newWeapon =
             new M16(&M16Texture, sf::Vector2f(50.0f, 30.0f), projectileTex, "M16");
+        newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+        weapons.push_back(newWeapon);
+      }
+      break;
+      case 3:  // Laser Gun
+      for (int i = 0; i < 1; i++) {
+        float x =
+            static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
+        float y =
+            static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
+                  << std::endl;
+
+        Weapon* newWeapon = new LaserGun(
+            &laserGunTexture, sf::Vector2f(100.0f, 80.0f), laserTex, "LaserGun");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
