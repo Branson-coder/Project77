@@ -10,7 +10,7 @@ class HUD {
 public:
     HUD(sf::Font& font, const sf::Vector2f& windowSize, Player& player);
     void updatePosition(const sf::Vector2f& windowSize);
-    void update(float deltaTime);
+    void update();
     void draw(sf::RenderWindow& window);
 
 private:

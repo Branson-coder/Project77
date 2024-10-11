@@ -5,7 +5,7 @@ HUD::HUD(sf::Font& font, const sf::Vector2f& windowSize, Player& player)
     : player(player),
       font(font),
       showMessage(false),
-      messageDuration(2),
+      messageDuration(3),
       messageInterval(5),
       elapsedTime(0),
       messageIndex(0) {
@@ -85,7 +85,7 @@ void HUD::updatePosition(const sf::Vector2f& windowSize) {
 }
 
 // Update HUD elements based on player status
-void HUD::update(float deltaTime) {
+void HUD::update() {
   // Update health and ammo texts
   healthText.setString("Health: " + std::to_string((int)(player.getHealth())));
   ammoText.setString("Ammo: " + std::to_string(player.getAmmo()));
@@ -101,25 +101,9 @@ void HUD::update(float deltaTime) {
                              std::to_string(player.getHealthPotionCount()));
   tutorialText.setString(
       " Controls\n\n Movement: WASD\n Shoot: Space\n Pickup: E\n Use Heals: "
-      "R\n\n Survive and\n defeat as many\n enemies as you\n can!");
-
-  // Update the message timer
-  elapsedTime += deltaTime;
-
-  // Check if it's time to show a new message
-  if (elapsedTime >= messageInterval) {
-    // Select a random message
-    messageIndex = rand() % messages.size();
-    showMessage = true;
-    elapsedTime = 0;  // Reset timer
-  }
-
-  // Manage message visibility duration
-  if (showMessage) {
-    if (elapsedTime >= messageDuration) {
-      showMessage = false;  // Hide the message after duration
-    }
-  }
+      "R\n\n Survive and\n defeat as many\n enemies as you\n can!\n\n Pickup "
+      "different\n weapons as you \nshoot enemies \n\n The maximum\n number of "
+      "heals\n held at once\n is 5");
 }
 
 // Draw HUD on the screen
@@ -132,15 +116,4 @@ void HUD::draw(sf::RenderWindow& window) {
   window.draw(weaponText);
   window.draw(healthPotionText);
   window.draw(tutorialText);
-
-  if (showMessage) {
-    sf::Text messageText;
-    messageText.setFont(font);
-    messageText.setCharacterSize(30);
-    messageText.setFillColor(sf::Color::White);
-    messageText.setString(messages[messageIndex]);
-    messageText.setPosition(backgroundRight.getPosition().x + 20,
-                            500);  // Adjust position as needed
-    window.draw(messageText);
-  }
 }

@@ -143,7 +143,7 @@ int main() {
                     player.Draw(gameWindow);
 
                     // Update and draw the HUD
-                    hud.update(deltaTime);
+                    hud.update();
                     hud.draw(gameWindow);
                     gameWindow.display();
 
