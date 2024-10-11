@@ -5,7 +5,7 @@
 SawedOff::SawedOff(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
     : Shotgun(texture, size, projectileTex)
 {
-    spread = 3;  // AK-47 fires 5 rounds per burst somehow visually
+    spread = 3;  
     damage = 5.0f;          
     maxAmmo = 120;         
     currentAmmo = maxAmmo;
@@ -14,7 +14,7 @@ SawedOff::SawedOff(sf::Texture* texture, sf::Vector2f size, sf::Texture* project
 
 void SawedOff::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
     sf::Vector2f projectileSize(50.0f, 50.0f);
-    if (currentAmmo >= spread) {
+    if (currentAmmo >= 10) {
         for (int i = 0; i < spread; ++i) {
             Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction, 800.0f);  
             newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  

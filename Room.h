@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "AK47.h"
+#include "M16.h"
 #include "Ammo.h"
 #include "FastEnemy.h"
 #include "Heals.h"

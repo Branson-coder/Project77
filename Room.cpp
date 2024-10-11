@@ -43,6 +43,17 @@ void Room::generateWeapons() {
     akTextureLoaded = true;
   }
 
+   static sf::Texture M16Texture;
+  static bool m16TextureLoaded = false;
+  if (!m16TextureLoaded) {
+    if (!M16Texture.loadFromFile("M16.png")) {
+      std::cerr << "Error loading M16 texture!"
+                << std::endl;  // debugging stuff just in case
+      return;
+    }
+    m16TextureLoaded = true;
+  }
+
   static sf::Texture shotTexture;
   static bool shotTextureLoaded = false;
   if (!shotTextureLoaded) {
@@ -65,7 +76,7 @@ void Room::generateWeapons() {
   }
 
   int randomWeaponType =
-      rand() % 2;  // change to 3 once laser gun is implemented
+      rand() % 3;  // change to 3 once laser gun is implemented
   switch (randomWeaponType) {
     case 0:
       for (int i = 0; i < 1; i++) {
@@ -77,7 +88,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon =
-            new AK47(&akTexture, sf::Vector2f(50.0f, 50.0f), projectileTex);
+            new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -94,6 +105,21 @@ void Room::generateWeapons() {
 
         Weapon* newWeapon = new SawedOff(
             &shotTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex);
+        newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+        weapons.push_back(newWeapon);
+      }
+      break;
+    case 2:
+      for (int i = 0; i < 1; i++) {
+        float x =
+            static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
+        float y =
+            static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
+                  << std::endl;
+
+        Weapon* newWeapon =
+            new M16(&M16Texture, sf::Vector2f(50.0f, 50.0f), projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }

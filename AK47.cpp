@@ -5,7 +5,7 @@
 AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
     : AssaultRifle(texture, size, projectileTex)
 {
-    burstFireRounds = 1;  // AK-47 fires 5 rounds per burst somehow visually
+    burstFireRounds = 1; 
     damage = 25.0f;        
     fireRate = 0.08f;      
     maxAmmo = 120;         
