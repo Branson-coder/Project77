@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <SFML/System.hpp> 
+
 
 #include "HUD.h"
 #include "Menu.h"
@@ -40,9 +42,9 @@ int main() {
   bool running = true;
   while (running) {
     // Create the main menu window
-    sf::RenderWindow menuWindow(sf::VideoMode(512, 512), "Main Menu");
+    sf::RenderWindow menuWindow(sf::VideoMode(1920, 1080), "Main Menu");
     menuWindow.setPosition(sf::Vector2i(
-        (screenWidth - 540) / 2, (screenHeight - 600) / 2));  // Center position
+        (screenWidth - 1920) / 2, (screenHeight - 1080) / 2));  // Center position
     Menu menu(menuWindow.getSize().x,
               menuWindow.getSize().y);  // Initialize the menu
     // Main menu loop
@@ -68,11 +70,11 @@ int main() {
                 menuWindow.close();
 
                 // Create the game window
-                gameWindow.create(sf::VideoMode(512, 512), "Pixel Gun 2D",
+                gameWindow.create(sf::VideoMode(1920, 1070), "Pixel Gun 2D",
                                   sf::Style::Close | sf::Style::Resize);
                 gameWindow.setPosition(
-                    sf::Vector2i((screenWidth - 800) / 2,
-                                 (screenHeight - 600) / 2));  // Center position
+                    sf::Vector2i((screenWidth - 1920) / 2,
+                                 (screenHeight - 1070) / 2));  // Center position
                 view.setSize(VIEW_HEIGHT, VIEW_HEIGHT);  // Initialize view size
                 view.setCenter(0.0f, 0.0f);              // Center the view
 
@@ -144,6 +146,53 @@ int main() {
                     hud.update();
                     hud.draw(gameWindow);
                     gameWindow.display();
+
+                    if (player.getHealth() <= 0) {
+                      // Create Game Over Screen
+                      sf::sleep(sf::milliseconds(500));
+                      sf::RenderWindow gameOverWindow(sf::VideoMode(512, 512),
+                                                      "Game Over");
+                                                      gameOverWindow.setPosition(
+                    sf::Vector2i((screenWidth - 512) / 2,
+                                 (screenHeight - 512) / 2));  // Center position
+        
+                      sf::Font font;
+                      if (!font.loadFromFile("font.otf")) {
+                        std::cerr << "Error loading font.otf" << std::endl;
+                        return -1;
+                      }
+                      sf::Text gameOverText;
+                      gameOverText.setFont(font);
+                      gameOverText.setString(
+                          "GAME OVER!\nYour score "
+                          "was: " +
+                          std::to_string(player.getScore()) +
+                          "\nPress Esc key to exit.");
+                      gameOverText.setCharacterSize(50);
+                      gameOverText.setFillColor(sf::Color::Red);
+                      gameOverText.setPosition(50, 200);  // adjust as needed
+
+                      while (gameOverWindow.isOpen()) {
+                        sf::Event event;
+                        while (gameOverWindow.pollEvent(event)) {
+                          if (event.type == sf::Event::Closed) {
+                            gameOverWindow.close();
+                            running = false;
+                          }
+                          if (event.type == sf::Event::KeyPressed) {
+                            if (event.key.code == sf::Keyboard::Escape) {
+                              gameOverWindow.close();  // Exit the game
+                              gameWindow.close(); //exit game
+                            }
+                          }
+                        }
+
+                        gameOverWindow.clear(sf::Color::Black);
+                        gameOverWindow.draw(gameOverText);
+                        gameOverWindow.display();
+                      }
+                      
+                    }
                   }
                 }
                 break;
@@ -151,11 +200,11 @@ int main() {
                 std::cout
                     << "Show Tutorial!\n";  // Replace with tutorial display
                 menuWindow.close();
-                tutWindow.create(sf::VideoMode(512, 512), "Tutorial",
+                tutWindow.create(sf::VideoMode(1920, 1080), "Tutorial",
                                  sf::Style::Close | sf::Style::Resize);
                 tutWindow.setPosition(
-                    sf::Vector2i((screenWidth - 800) / 2,
-                                 (screenHeight - 600) / 2));  // centre position
+                    sf::Vector2i((screenWidth - 1920) / 2,
+                                 (screenHeight - 1080) / 2));  // centre position
                 view.setSize(VIEW_HEIGHT, VIEW_HEIGHT);       // set view size
                 view.setCenter(0.0f, 0.0f);
 

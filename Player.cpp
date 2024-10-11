@@ -153,6 +153,7 @@ void Player::takeDamage(float damage) // should be enemy damage here
     health -= damage;  // Decrease health by damage amount
     if (health < 0) {
         health = 0;  // Clamp health to zero
+        gameOver();
     }
 
     
@@ -220,7 +221,6 @@ if (currentWeapon) {
 
 int Player::getScore() { return score; }
 
-// std::string Player::getWeapon() 
-// { 
-//     return std::string(currentWeapon);
-// }
+void Player::gameOver() {
+    std::cout << "Game Over!" << std::endl;
+}

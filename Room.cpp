@@ -76,7 +76,7 @@ void Room::generateWeapons() {
   }
 
   int randomWeaponType =
-      rand() % 3;  // change to 3 once laser gun is implemented
+      rand() % 3;  // change to more once laser gun is implemented
   switch (randomWeaponType) {
     case 0:
       for (int i = 0; i < 1; i++) {
