@@ -132,6 +132,7 @@ int main() {
 
                     gameWindow.clear(sf::Color(150, 150, 150));
                     gameWindow.setView(view);
+                    room.update(deltaTime);
                     room.Display(gameWindow, playerCollider, player, deltaTime);
                     player.Draw(gameWindow);
 
