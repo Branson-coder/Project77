@@ -121,6 +121,10 @@ int main() {
                         if (evnt.key.code == sf::Keyboard::Space) {
                           player.shoot();
                         }
+
+                        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+                          player.useHeal();  // Player uses a heal
+                        }
                       }
                     }
 

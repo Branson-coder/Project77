@@ -170,23 +170,35 @@ bool Player::equipHeal(Heals* heal) {
     }
 }
 
+float Player::getHealth() const {
+    return health;
+}
+
+void Player::setHealth(float newHealth) {
+    if (newHealth > 100.0f) {
+        health = 100.0f; // Cap health at 100
+    } else if (newHealth < 0.0f) {
+        health = 0.0f;   // Health should not be below 0
+    } else {
+        health = newHealth;
+    }
+}
+
 void Player::useHeal() {
     if (healCount > 0) {
-        if (health >= 100.0f) {
+        if (getHealth() >= 100.0f) {
             std::cout << "Health is already full! Cannot use heal." << std::endl;
             return;
         }
 
-        // Call the effect of the heal, and then heal the player directly
-        healInventory[healCount - 1]->effect();
         
-        // Increase player's health by 20 (for example)
-        health += 20.0f;
-        if (health > 100.0f) {
-            health = 100.0f;  // Cap health at 100
-        }
+        healInventory[healCount - 1];
 
-        // Remove the heal from the inventory
+        
+        float newHealth = getHealth() + 20.0f;
+        setHealth(newHealth);
+
+     
         healInventory[healCount - 1] = nullptr;
         healCount--;
 
@@ -195,8 +207,6 @@ void Player::useHeal() {
         std::cout << "No heals available in the inventory!" << std::endl;
     }
 }
-
-int Player::getHealth() { return health; }
 
 int Player::getAmmo()   {
 if (currentWeapon) {

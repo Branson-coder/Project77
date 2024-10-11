@@ -52,7 +52,7 @@ void HUD::updatePosition(const sf::Vector2f& windowSize) {
 void HUD::update()
 {
     // Update health and ammo texts
-    healthText.setString("Health: " + std::to_string(player.getHealth()));
+    healthText.setString("Health: " + std::to_string((int)(player.getHealth())));
     ammoText.setString("Ammo: " + std::to_string(player.getAmmo()));
     scoreText.setString("Score: " + std::to_string(player.getScore()));
     Weapon* currentWeapon = player.getCurrentWeapon(); // Get the current weapon

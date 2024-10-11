@@ -38,11 +38,14 @@ public:
     }
 
     void increaseScore(){score++;}
-
-    int getHealth();
+    
     int getAmmo();
     int getScore();
     std::string getWeapon();
+
+    
+    float getHealth() const;
+    void setHealth(float health);
     
 private:
     enum Direction { Up, Down, Left, Right };
