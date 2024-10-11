@@ -2,8 +2,8 @@
 #include <cmath>
 
 // Constructor
-SawedOff::SawedOff(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
-    : Shotgun(texture, size, projectileTex)
+SawedOff::SawedOff(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex, const std::string& name)
+    : Shotgun(texture, size, projectileTex, "Sawed Off")
 {
     spread = 3;  
     damage = 5.0f;          

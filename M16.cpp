@@ -2,8 +2,8 @@
 #include <cmath>
 
 // Constructor
-M16::M16(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
-    : AssaultRifle(texture, size, projectileTex)
+M16::M16(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, const std::string& name)
+    : AssaultRifle(texture, size, projectileTex, "M16")
 {
     burstFireRounds = 2;  
     damage = 16.0f;        

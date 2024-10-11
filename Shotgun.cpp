@@ -2,8 +2,8 @@
 #include <cmath>
 
 // Constructor
-Shotgun::Shotgun(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
-    : Weapon(texture, size, 0.1f, 20.0f, "Shotgun"), spread(3), takeOff(10)
+Shotgun::Shotgun(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex, const std::string& name)
+    : Weapon(texture, size, 0.1f, 20.0f, name), spread(3), takeOff(10)
 {
     projectileTexture = *projectileTex;  
     maxAmmo = 90;  

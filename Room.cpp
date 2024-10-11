@@ -88,7 +88,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon =
-            new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex);
+            new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex, "AK47");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -104,7 +104,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon = new SawedOff(
-            &shotTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex);
+            &shotTexture, sf::Vector2f(50.0f, 50.0f), &projectileTex, "Sawed Off");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -119,7 +119,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon =
-            new M16(&M16Texture, sf::Vector2f(50.0f, 50.0f), projectileTex);
+            new M16(&M16Texture, sf::Vector2f(50.0f, 50.0f), projectileTex, "M16");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }

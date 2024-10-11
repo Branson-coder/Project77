@@ -2,8 +2,8 @@
 #include <cmath>
 
 // Constructor
-AssaultRifle::AssaultRifle(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
-    : Weapon(texture, size, 0.1f, 20.0f, "AK47"), burstFireRounds(3)  
+AssaultRifle::AssaultRifle(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, const std::string& name)
+    : Weapon(texture, size, 0.1f, 20.0f, name), burstFireRounds(3)  
 {
     projectileTexture = projectileTex;  
     maxAmmo = 90;  

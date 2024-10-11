@@ -2,8 +2,8 @@
 #include <cmath>
 
 // Constructor
-AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
-    : AssaultRifle(texture, size, projectileTex)
+AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, const std::string& name)
+    : AssaultRifle(texture, size, projectileTex, "AK47")
 {
     burstFireRounds = 1; 
     damage = 25.0f;        
