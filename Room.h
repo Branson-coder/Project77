@@ -27,7 +27,7 @@ class Room {
   void generateHeals();
 
   ~Room();
-  void update(float deltaTime);
+  void update();
 
  private:
   vector<Weapon*> weapons;
