@@ -12,7 +12,7 @@
 
 using namespace std;
 
-static const float VIEW_HEIGHT = 1080.0f;
+static const float VIEW_HEIGHT = 1200.0f;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view) {
   float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
@@ -70,11 +70,11 @@ int main() {
                 menuWindow.close();
 
                 // Create the game window
-                gameWindow.create(sf::VideoMode(1920, 1070), "Pixel Gun 2D",
+                gameWindow.create(sf::VideoMode(1920, 1080), "Pixel Gun 2D",
                                   sf::Style::Close | sf::Style::Resize);
                 gameWindow.setPosition(
                     sf::Vector2i((screenWidth - 1920) / 2,
-                                 (screenHeight - 1070) / 2));  // Center position
+                                 (screenHeight - 1080) / 2));  // Center position
                 view.setSize(VIEW_HEIGHT, VIEW_HEIGHT);  // Initialize view size
                 view.setCenter(0.0f, 0.0f);              // Center the view
 
@@ -100,7 +100,7 @@ int main() {
                     std::cerr << "Error loading font.otf" << std::endl;
                     return -1;
                   }
-                  HUD hud(font, sf::Vector2f(1470.0f, 1000.0f),
+                  HUD hud(font, sf::Vector2f(1920.0f, 1080.0f),
                           player);  // Initialize HUD
 
                   // Game loop
@@ -143,7 +143,7 @@ int main() {
                     player.Draw(gameWindow);
 
                     // Update and draw the HUD
-                    hud.update();
+                    hud.update(deltaTime);
                     hud.draw(gameWindow);
                     gameWindow.display();
 
