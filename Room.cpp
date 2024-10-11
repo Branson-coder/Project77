@@ -256,8 +256,34 @@ void Room::Display(sf::RenderWindow& window, Collider playerCollider,
                 break;  // Break inner loops once a collision is detected
               }
             }
+<<<<<<< HEAD
           }
           if (collidedWithWall) break;
+=======
+
+            // If we erased the projectile, skip incrementing j (since vector shrinks)
+            if (collidedWithWall) continue;
+
+            // Enemy collision check
+            if (projectileCollider.checkCollision(enemyCollider, 0.2f)) {
+                // Projectile hits enemy
+                projectiles.erase(projectiles.begin() + j);  // Erase projectile
+                enemies[i]->takeDamage(playerWeapon->getDamage());
+
+                // If enemy dies, erase the enemy
+                if (enemies[i]->getHealth() == 0) {
+                    enemies.erase(enemies.begin() + i);
+                    player.increaseScore();
+                    break;  // Exit this enemy loop after erasing
+                }
+
+                // If projectile was erased, skip incrementing j
+                continue;
+            }
+
+            // Increment j only if no erasures occurred
+            ++j;
+>>>>>>> c782104a7a59420b93dbfdc4ef7da06639c06f9c
         }
 
         // If we erased the projectile, skip incrementing j (since vector

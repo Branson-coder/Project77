@@ -29,12 +29,15 @@ public:
     void equipWeapon(Weapon* weapon);      
     void switchWeapon(int index);        
     void shoot(); 
+
     bool equipHeal(Heals* heal);        // Equip a healing item
     void useHeal();                     // Use healing item
 
     sf::Vector2f GetSize() const {
     return body.getSize();
     }
+
+    void increaseScore(){score++;}
 
     int getHealth();
     int getAmmo();
