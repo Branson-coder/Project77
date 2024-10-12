@@ -7,26 +7,26 @@
 using namespace std;
 
 Room::Room(sf::Texture* texture, sf::Vector2f position)
-    : spawnInterval(sf::seconds(3)) {
-    for (int x = 0; x < maxSize.x; x++) {
-      layout.push_back(vector<Wall>());
-      for (int y = 0; y < maxSize.y; y++) {
-        if (x == 0 || x == maxSize.x - 1 || y == 0 || y == maxSize.y - 1 ||
-            y == 0) {
-          layout[x].push_back(
-              Wall(texture, sf::Vector2f(100.0f, 100.f),
-                   position + sf::Vector2f(100.0f * x, 100.0f * y),
-                   sf::Color::White, true));
+    : spawnInterval(sf::seconds(5)) {
+  for (int x = 0; x < maxSize.x; x++) {
+    layout.push_back(vector<Wall>());
+    for (int y = 0; y < maxSize.y; y++) {
+      if (x == 0 || x == maxSize.x - 1 || y == 0 || y == maxSize.y - 1 ||
+          y == 0) {
+        layout[x].push_back(
+            Wall(texture, sf::Vector2f(100.0f, 100.f),
+                 position + sf::Vector2f(100.0f * x, 100.0f * y),
+                 sf::Color::White, true));
 
-        } else {
-          layout[x].push_back(
-              Wall(nullptr, sf::Vector2f(100.0f, 100.f),
-                   position + sf::Vector2f(100.0f * x, 100.0f * y),
-                   sf::Color::Black, false));
-        }
+      } else {
+        layout[x].push_back(
+            Wall(nullptr, sf::Vector2f(100.0f, 100.f),
+                 position + sf::Vector2f(100.0f * x, 100.0f * y),
+                 sf::Color::Black, false));
       }
     }
-  
+  }
+
   generateWeapons();  // player starts with weapon
 }
 
@@ -42,7 +42,7 @@ void Room::generateWeapons() {
     akTextureLoaded = true;
   }
 
-   static sf::Texture M16Texture;
+  static sf::Texture M16Texture;
   static bool m16TextureLoaded = false;
   if (!m16TextureLoaded) {
     if (!M16Texture.loadFromFile("M16.png")) {
@@ -64,7 +64,7 @@ void Room::generateWeapons() {
     shotTextureLoaded = true;
   }
 
-   static sf::Texture pumpTexture;
+  static sf::Texture pumpTexture;
   static bool pumpTextureLoaded = false;
   if (!pumpTextureLoaded) {
     if (!pumpTexture.loadFromFile("Pump.png")) {
@@ -121,8 +121,8 @@ void Room::generateWeapons() {
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
                   << std::endl;
 
-        Weapon* newWeapon =
-            new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex, "AK47");
+        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f),
+                                     projectileTex, "AK47");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -137,8 +137,9 @@ void Room::generateWeapons() {
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
                   << std::endl;
 
-        Weapon* newWeapon = new SawedOff(
-            &shotTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex, "Sawed Off");
+        Weapon* newWeapon =
+            new SawedOff(&shotTexture, sf::Vector2f(50.0f, 30.0f),
+                         &projectileTex, "Sawed Off");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -152,8 +153,8 @@ void Room::generateWeapons() {
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
                   << std::endl;
 
-        Weapon* newWeapon =
-            new M16(&M16Texture, sf::Vector2f(50.0f, 30.0f), projectileTex, "M16");
+        Weapon* newWeapon = new M16(&M16Texture, sf::Vector2f(50.0f, 30.0f),
+                                    projectileTex, "M16");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -167,13 +168,13 @@ void Room::generateWeapons() {
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
                   << std::endl;
 
-        Weapon* newWeapon =
-            new Pump(&pumpTexture, sf::Vector2f(70.0f, 50.0f), &projectileTex, "Pump");
+        Weapon* newWeapon = new Pump(&pumpTexture, sf::Vector2f(70.0f, 50.0f),
+                                     &projectileTex, "Pump");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
       break;
-      case 4:  // Laser Gun
+    case 4:  // Laser Gun
       for (int i = 0; i < 1; i++) {
         float x =
             static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
@@ -182,8 +183,9 @@ void Room::generateWeapons() {
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
                   << std::endl;
 
-        Weapon* newWeapon = new LaserGun(
-            &laserGunTexture, sf::Vector2f(100.0f, 80.0f), laserTex, "LaserGun");
+        Weapon* newWeapon =
+            new LaserGun(&laserGunTexture, sf::Vector2f(100.0f, 80.0f),
+                         laserTex, "LaserGun");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -220,7 +222,7 @@ Room::~Room() {}
 void Room::update() {
   // Update enemy spawning
   if (enemySpawnClock.getElapsedTime() >= spawnInterval) {
-    int randomEnemyType = rand() % 3;  // rand choose an enemy type
+    int randomEnemyType = rand() % 9;  // rand choose an enemy type
 
     switch (randomEnemyType) {
       case 0:
@@ -231,6 +233,30 @@ void Room::update() {
         break;
       case 2:
         spawnNormalEnemies();
+        break;
+      case 3:
+        spawnNormalEnemies();
+        spawnNormalEnemies();
+        break;
+      case 4:
+        spawnFastEnemies();
+        spawnFastEnemies();
+        break;
+      case 5:
+        spawnTankyEnemies();
+        spawnTankyEnemies();
+        break;
+      case 6:
+        spawnNormalEnemies();
+        spawnTankyEnemies();
+        break;
+      case 7:
+        spawnFastEnemies();
+        spawnTankyEnemies();
+        break;
+      case 8:
+        spawnNormalEnemies();
+        spawnFastEnemies();
         break;
     }
 
@@ -244,8 +270,8 @@ void Room::update() {
 
     if (randomItem < 75) {
       generateWeapons();
-       std::cout << "Generating weapons..." << std::endl;  // Debug message
-    } else {  // 25% chance
+      std::cout << "Generating weapons..." << std::endl;  // Debug message
+    } else {                                              // 25% chance
       generateHeals();
       std::cout << "Generating heals..." << std::endl;  // Debug message
     }
@@ -322,64 +348,64 @@ void Room::Display(sf::RenderWindow& window, Collider playerCollider,
 
     // Check collision with the player
     if (enemyCollider.checkCollision(playerCollider, 0.4f)) {
-        player.takeDamage(enemies[i]->getDamage());
+      player.takeDamage(enemies[i]->getDamage());
     }
 
-    Weapon* playerWeapon = player.getCurrentWeapon(); 
+    Weapon* playerWeapon = player.getCurrentWeapon();
     if (playerWeapon != nullptr) {
-        std::vector<Projectile>& projectiles = playerWeapon->getProjectiles();
-        
-        // Iterate through projectiles
-        for (size_t j = 0; j < projectiles.size();) {
-            Collider projectileCollider = projectiles[j].GetCollider();
+      std::vector<Projectile>& projectiles = playerWeapon->getProjectiles();
 
-            // Wall collision check
-            bool collidedWithWall = false;
-            for (int x = 0; x < maxSize.x; x++) {
-                for (int y = 0; y < maxSize.y; y++) {
-                    if (layout[x][y].getColliderState() == true) {	
-                        Collider wallCollider = layout[x][y].GetCollider();
-                        enemyCollider.checkCollision(wallCollider,0.0f);
-                        if (projectileCollider.checkCollision(wallCollider, 0.0f)) {
-                            // Erase projectile if it hits a wall
-                            projectiles.erase(projectiles.begin() + j);
-                            collidedWithWall = true;
-                            break;  // Break inner loops once a collision is detected
-                        }
-                    }
-                }
-                if (collidedWithWall) break;
+      // Iterate through projectiles
+      for (size_t j = 0; j < projectiles.size();) {
+        Collider projectileCollider = projectiles[j].GetCollider();
+
+        // Wall collision check
+        bool collidedWithWall = false;
+        for (int x = 0; x < maxSize.x; x++) {
+          for (int y = 0; y < maxSize.y; y++) {
+            if (layout[x][y].getColliderState() == true) {
+              Collider wallCollider = layout[x][y].GetCollider();
+              enemyCollider.checkCollision(wallCollider, 0.0f);
+              if (projectileCollider.checkCollision(wallCollider, 0.0f)) {
+                // Erase projectile if it hits a wall
+                projectiles.erase(projectiles.begin() + j);
+                collidedWithWall = true;
+                break;  // Break inner loops once a collision is detected
+              }
             }
-
-            // If we erased the projectile, skip incrementing j
-            if (collidedWithWall) continue;
-
-            // Enemy collision check
-            if (projectileCollider.checkCollision(enemyCollider, 0.2f)) {
-                // Projectile hits enemy
-                projectiles.erase(projectiles.begin() + j);  // Erase projectile
-                enemies[i]->takeDamage(playerWeapon->getDamage());
-
-                // If enemy dies, erase the enemy
-                if (enemies[i]->getHealth() == 0) {
-                    enemies.erase(enemies.begin() + i);
-                    player.increaseScore();
-                    break;  // Exit this enemy loop after erasing
-                }
-
-                // If projectile was erased, skip incrementing j
-                continue;
-            }
-
-            // Increment j only if no erasures occurred
-            ++j;
+          }
+          if (collidedWithWall) break;
         }
+
+        // If we erased the projectile, skip incrementing j
+        if (collidedWithWall) continue;
+
+        // Enemy collision check
+        if (projectileCollider.checkCollision(enemyCollider, 0.2f)) {
+          // Projectile hits enemy
+          projectiles.erase(projectiles.begin() + j);  // Erase projectile
+          enemies[i]->takeDamage(playerWeapon->getDamage());
+
+          // If enemy dies, erase the enemy
+          if (enemies[i]->getHealth() == 0) {
+            enemies.erase(enemies.begin() + i);
+            player.increaseScore();
+            break;  // Exit this enemy loop after erasing
+          }
+
+          // If projectile was erased, skip incrementing j
+          continue;
+        }
+
+        // Increment j only if no erasures occurred
+        ++j;
+      }
     }
 
     // Increment i only if no enemies were erased
     ++i;
+  }
 }
- }
 
 void Room::spawnFastEnemies() {
   static sf::Texture fastEnemyTexture;
