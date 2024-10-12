@@ -30,6 +30,14 @@ Room::Room(sf::Texture* texture, sf::Vector2f position)
   generateWeapons();  // player starts with weapon
 }
 
+Room::~Room(){
+  for (Enemy* enemy : enemies) {
+            delete enemy; // Free memory for each enemy
+        }
+        enemies.clear();
+}
+
+
 void Room::generateWeapons() {
   static sf::Texture akTexture;
   static bool akTextureLoaded = false;
@@ -216,8 +224,6 @@ void Room::generateHeals() {
     healthPacks.push_back(newHealthPack);
   }
 }
-
-Room::~Room() {}
 
 void Room::update() {
   // Update enemy spawning

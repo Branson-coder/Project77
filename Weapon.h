@@ -30,9 +30,6 @@ public:
 		return projectiles;
 	}
     std::vector<Projectile> projectiles;
-    Collider& GetCollider(){
-        return collider;
-    }
     int getAmmo();
     sf::Vector2f getPosition() const; 
     std::string getName() const;  //  method to get weapon name
@@ -45,7 +42,6 @@ protected:
     int currentAmmo;
     sf::RectangleShape body;
 
-    Collider collider;
 
     std::string weaponName;
       

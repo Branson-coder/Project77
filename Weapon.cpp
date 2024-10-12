@@ -9,7 +9,6 @@ Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate,
       fireRate(fireRate),
       maxAmmo(30),
       currentAmmo(maxAmmo),
-      collider(body),
       weaponName(name) {
   body.setSize(size);
   body.setTexture(texture);
