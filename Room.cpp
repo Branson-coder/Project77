@@ -168,7 +168,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon =
-            new Pump(&pumpTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex, "Pump");
+            new Pump(&pumpTexture, sf::Vector2f(70.0f, 50.0f), &projectileTex, "Pump");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
