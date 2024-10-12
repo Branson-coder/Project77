@@ -6,8 +6,7 @@ AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, c
     : AssaultRifle(texture, size, projectileTex, "AK47")
 {
     burstFireRounds = 1; 
-    damage = 25.0f;        
-    fireRate = 0.08f;      
+    damage = 25.0f;              
     maxAmmo = 120;         
     currentAmmo = maxAmmo;
 }

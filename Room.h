@@ -10,6 +10,7 @@
 #include "NormalEnemy.h"
 #include "Player.h"
 #include "SawedOff.h"
+#include "Pump.h"
 #include "TankyEnemy.h"
 #include "Wall.h"
 #include "Weapon.h"
@@ -18,7 +19,7 @@ using namespace std;
 
 class Room {
  public:
-  Room(sf::Texture* texture, sf::Vector2f position, int roomType);
+  Room(sf::Texture* texture, sf::Vector2f position);
   void Display(sf::RenderWindow& window, Collider playerCollider,
                Player& player, float deltaTime);
 

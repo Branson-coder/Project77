@@ -1,18 +1,18 @@
-#include "SawedOff.h"
+#include "Pump.h"
 #include <cmath>
 
 // Constructor
-SawedOff::SawedOff(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex, const std::string& name)
-    : Shotgun(texture, size, projectileTex, "Sawed Off")
+Pump::Pump(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex, const std::string& name)
+    : Shotgun(texture, size, projectileTex, "Pump")
 {
-    push = 5;  
-    damage = 5.0f;          
+    push = 7;  
+    damage = 4.0f;          
     maxAmmo = 120;         
     currentAmmo = maxAmmo;
-    takeOff = 10;
+    takeOff = 20;
 }
 
-void SawedOff::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
+void Pump::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
     sf::Vector2f projectileSize(50.0f, 50.0f);
     if (currentAmmo >= 10) {
         for (int i = 0; i < push; ++i) {
@@ -39,7 +39,10 @@ void SawedOff::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
         Projectile projectile3(&projectileTexture, startPosition, projectileSize, OffsetDirection, 800.0f);  
         projectile3.setRotation(atan2(OffsetDirection.y, OffsetDirection.x) * 180 / 3.14159265);  
         projectiles.push_back(projectile3);
+        
         }
+
+        
 
         
         

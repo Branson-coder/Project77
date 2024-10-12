@@ -20,9 +20,8 @@ void AssaultRifle::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
             projectiles.push_back(newProjectile);
         }
         currentAmmo -= burstFireRounds;
-        std::cout << "Assault Rifle fired " << burstFireRounds << " rounds. Ammo left: " << currentAmmo << std::endl;
     } else {
-        std::cout << "Not enough ammo to fire burst." << std::endl; // might get rid of the burst 
+        std::cout << "Not enough ammo to fire burst." << std::endl; 
     }
 }
 

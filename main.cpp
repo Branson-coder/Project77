@@ -33,7 +33,7 @@ int main() {
   sf::Texture tutTexture;       // texture for the tutorial
 
   Player player(nullptr, sf::Vector2u(4, 4), 0.2f, 200.0f);  // Player object
-  Room room(nullptr, sf::Vector2f(0.0f, 0.0f), 1);           // Room object
+  Room room(nullptr, sf::Vector2f(0.0f, 0.0f));           // Room object
   sf::View view;           // View for the game
   float deltaTime = 0.0f;  // Time delta
   sf::Clock clock;         // Clock to track time
@@ -90,7 +90,7 @@ int main() {
                   std::cerr << "Error loading wall texture" << std::endl;
                   return -1;
                 }
-                room = Room(&wallTexture, sf::Vector2f(0.0f, 0.0f), 1);
+                room = Room(&wallTexture, sf::Vector2f(0.0f, 0.0f));
 
                 // Load font and create HUD
                 {

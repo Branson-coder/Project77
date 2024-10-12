@@ -6,8 +6,7 @@ M16::M16(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, con
     : AssaultRifle(texture, size, projectileTex, "M16")
 {
     burstFireRounds = 2;  
-    damage = 16.0f;        
-    fireRate = 0.08f;      
+    damage = 16.0f;            
     maxAmmo = 120;         
     currentAmmo = maxAmmo;
 }

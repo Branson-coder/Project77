@@ -6,9 +6,8 @@
 
 using namespace std;
 
-Room::Room(sf::Texture* texture, sf::Vector2f position, int roomType)
+Room::Room(sf::Texture* texture, sf::Vector2f position)
     : spawnInterval(sf::seconds(3)) {
-  if (roomType == 1) {
     for (int x = 0; x < maxSize.x; x++) {
       layout.push_back(vector<Wall>());
       for (int y = 0; y < maxSize.y; y++) {
@@ -27,7 +26,7 @@ Room::Room(sf::Texture* texture, sf::Vector2f position, int roomType)
         }
       }
     }
-  }
+  
   generateWeapons();  // player starts with weapon
 }
 
@@ -65,6 +64,17 @@ void Room::generateWeapons() {
     shotTextureLoaded = true;
   }
 
+   static sf::Texture pumpTexture;
+  static bool pumpTextureLoaded = false;
+  if (!pumpTextureLoaded) {
+    if (!pumpTexture.loadFromFile("Pump.png")) {
+      std::cerr << "Error loading Pump texture!"
+                << std::endl;  // debugging stuff just in case
+      return;
+    }
+    pumpTextureLoaded = true;
+  }
+
   static sf::Texture projectileTex;
   static bool projectileTexLoaded = false;
   if (!projectileTexLoaded) {
@@ -100,7 +110,7 @@ void Room::generateWeapons() {
   }
 
   int randomWeaponType =
-      rand() % 4;  // change to more once laser gun is implemented
+      rand() % 5;  // change to more once laser gun is implemented
   switch (randomWeaponType) {
     case 0:
       for (int i = 0; i < 1; i++) {
@@ -148,7 +158,22 @@ void Room::generateWeapons() {
         weapons.push_back(newWeapon);
       }
       break;
-      case 3:  // Laser Gun
+    case 3:
+      for (int i = 0; i < 1; i++) {
+        float x =
+            static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
+        float y =
+            static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
+                  << std::endl;
+
+        Weapon* newWeapon =
+            new Pump(&pumpTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex, "Pump");
+        newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+        weapons.push_back(newWeapon);
+      }
+      break;
+      case 4:  // Laser Gun
       for (int i = 0; i < 1; i++) {
         float x =
             static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
@@ -314,6 +339,7 @@ void Room::Display(sf::RenderWindow& window, Collider playerCollider,
                 for (int y = 0; y < maxSize.y; y++) {
                     if (layout[x][y].getColliderState() == true) {	
                         Collider wallCollider = layout[x][y].GetCollider();
+                        enemyCollider.checkCollision(wallCollider,0.0f);
                         if (projectileCollider.checkCollision(wallCollider, 0.0f)) {
                             // Erase projectile if it hits a wall
                             projectiles.erase(projectiles.begin() + j);

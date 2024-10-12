@@ -9,7 +9,7 @@ class Shotgun : public Weapon{
     float getDamage() const override;
 
     protected:
-    int spread;
+    int push;
     int takeOff;
 };
 
