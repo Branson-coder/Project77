@@ -1,14 +1,15 @@
+//header file for the hud class
 #ifndef HUD_H
 #define HUD_H
 
 #include <SFML/Graphics.hpp>
 #include "Player.h"
-#include <cstdlib> // For rand()
-#include <ctime>   // For time()
+#include <cstdlib> 
+#include <ctime>
 
 class HUD {
 public:
-    HUD(sf::Font& font, const sf::Vector2f& windowSize, Player& player);
+    HUD(sf::Font& font, const sf::Vector2f& windowSize, Player& player); //constructor
     void updatePosition(const sf::Vector2f& windowSize);
     void update();
     void draw(sf::RenderWindow& window);
@@ -16,20 +17,20 @@ public:
 private:
     Player& player;
     sf::Font& font;
-    sf::RectangleShape background; // Background for bottom HUD
-    sf::RectangleShape backgroundRight; //background for right HUD
-    sf::Text healthText; // Health text
-    sf::Text ammoText; // Ammo text
-    sf::Text scoreText; // Score text
-    sf::Text weaponText; //weapon text
-    sf::Text healthPotionText; //health potion text
-    sf::Text tutorialText; //tutorial text
+    sf::RectangleShape background; 
+    sf::RectangleShape backgroundRight;
+    sf::Text healthText;
+    sf::Text ammoText; 
+    sf::Text scoreText; 
+    sf::Text weaponText; 
+    sf::Text healthPotionText; 
+    sf::Text tutorialText;
     std::vector<std::string> messages;
     bool showMessage;
-    float messageDuration; // Time for which the message will be displayed
-    float messageInterval; // Time interval for showing new messages
-    float elapsedTime;     // Timer for tracking elapsed time
-    size_t messageIndex;   // Index of the currently displayed message
+    float messageDuration;
+    float messageInterval; 
+    float elapsedTime;    
+    size_t messageIndex; 
   
 };
 

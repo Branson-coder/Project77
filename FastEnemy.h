@@ -1,3 +1,4 @@
+//header file for fast enemy classm which inherits from enemy class
 #ifndef FASTENEMY_H
 #define FASTENEMY_H
 
@@ -6,8 +7,10 @@
 class FastEnemy : public Enemy 
 {
 public:
-    FastEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);  // Higher speed, lower health
+    //constructor
+    FastEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);
 
+    //update function which has been overridden from enemy
     void update(float deltaTime, const Player& player) override;
 
 };

@@ -225,6 +225,11 @@ void Room::generateHeals() {
   }
 }
 
+void Room::ResizeView(const sf::RenderWindow& window, sf::View& view) {
+  float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
+  view.setSize(VIEW_HEIGHT * aspectRatio, VIEW_HEIGHT);
+}
+
 void Room::update() {
   // Update enemy spawning
   if (enemySpawnClock.getElapsedTime() >= spawnInterval) {
@@ -484,3 +489,5 @@ void Room::spawnNormalEnemies() {
     enemies.push_back(newEnemy);
   }
 }
+
+const float Room::VIEW_HEIGHT = 1200.0f;

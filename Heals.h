@@ -1,3 +1,4 @@
+//this header file contains the heals class
 #ifndef HEALS_H
 #define HEALS_H
 
@@ -6,10 +7,10 @@
 class Heals : public Item {
 
 public:
-    // Constructor
+    // constructor
     Heals(sf::Vector2f position, sf::Texture* texture);
 
-    // Override the effect function
+    // override the effect function in items class
     void effect() override;
 };
 

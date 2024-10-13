@@ -6,6 +6,9 @@
 #include <iostream>
 using namespace std;
 
+// constructor for animation class requires parameters such as a pointer to
+// texture, the imagecount for the number of images considered when animating,
+// and switchtime which controls when the image should change
 Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount,
                      float switchTime) {
   // initialise variables
@@ -14,7 +17,7 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount,
   totalTime = 0.0f;
   currentImage.x = 0;
 
-  // debugging check because of segmentation faults
+  // debugging check because of segmentation faults. The beginning of the game 
   if (texture == nullptr) {
     std::cerr << "Error: Texture pointer is null!" << std::endl;
     uvRect.width = 0;

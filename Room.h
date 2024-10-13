@@ -29,6 +29,9 @@ class Room {
   void spawnNormalEnemies();
   void generateHeals();
 
+  static const float VIEW_HEIGHT;
+  void ResizeView(const sf::RenderWindow& window, sf::View& view);
+
   ~Room();
   void update();
 
@@ -41,5 +44,7 @@ class Room {
   sf::Clock enemySpawnClock;  // Clock to track enemy spawn timing
   sf::Time spawnInterval;     // Time interval for spawn
   sf::Clock itemSpawnClock; //time interval for item spawn timing
+  
+
 
 };

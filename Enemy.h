@@ -29,11 +29,12 @@ public:
     // destructor
     virtual ~Enemy();
 
-    // Core Methods
+    // base methods
     virtual void update(float deltaTime, const Player& player);
     virtual void draw(sf::RenderWindow& window);
     void takeDamage(float damage);
     
+    // getter for damage
     int getDamage(){
         return 5;
     }
@@ -42,7 +43,7 @@ public:
     sf::Vector2f getPosition() const { return body.getPosition(); }
     float getHealth() const { return health; }
     
-    // For collision handling
+    // for collision handling
      Collider GetCollider(){
         return Collider(body);
     }
