@@ -57,7 +57,7 @@ int main() {
           }
           if (event.key.code == sf::Keyboard::Enter) {
             switch (menu.getSelectedItemIndex()) {
-              case 0:                          // start the Game
+              case 0:                          // start the game
                 std::cout << "Start Game!\n";  // debug message in terminal to
                                                // show game starting
                 // close menu window
@@ -68,10 +68,10 @@ int main() {
                                   sf::Style::Close | sf::Style::Resize);
                 gameWindow.setPosition(sf::Vector2i(
                     (screenWidth - 1920) / 2,
-                    (screenHeight - 1080) / 2));  // Center position
+                    (screenHeight - 1080) / 2));  // centre position
                 view.setSize(Room::VIEW_HEIGHT,
-                             Room::VIEW_HEIGHT);  // Initialize view size
-                view.setCenter(0.0f, 0.0f);       // Center the view
+                             Room::VIEW_HEIGHT);  // view size
+                view.setCenter(0.0f, 0.0f);       // centre view
 
                 // load textures
                 if (!playerTexture.loadFromFile("Player.png")) {

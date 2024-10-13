@@ -27,7 +27,7 @@ Room::Room(sf::Texture* texture, sf::Vector2f position)
     }
   }
 
-  generateWeapons();  // player starts with weapon
+  
 }
 
 Room::~Room(){

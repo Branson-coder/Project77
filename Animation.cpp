@@ -17,11 +17,8 @@ Animation::Animation(sf::Texture* texture, sf::Vector2u imageCount,
   totalTime = 0.0f;
   currentImage.x = 0;
 
-  // debugging check because of segmentation faults. The beginning of the game 
+  // debugging check because of segmentation faults at the beginning of the game 
   if (texture == nullptr) {
-    std::cerr << "Error: Texture pointer is null!" << std::endl;
-    uvRect.width = 0;
-    uvRect.height = 0;
     return;
   }
   // affects the animation such that it displays the correct image
