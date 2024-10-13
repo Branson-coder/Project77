@@ -117,41 +117,50 @@ void Room::generateWeapons() {
     laserTexLoaded = true;  // Set the flag to true once loaded
   }
 
+  // Randomises randomWeaponType value between numbers 0-4
   int randomWeaponType =
-      rand() % 5;  // change to more once laser gun is implemented
+      rand() % 5;  
+
+  // Switch statement to select a random weapon with corresponding randomWeaponType number
   switch (randomWeaponType) {
     case 0:
+    // The loop iterates once to provide a scope for the variables
+    // Randomises position of weapon within maxSize bounds and not on the edge
       for (int i = 0; i < 1; i++) {
         float x =
             static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
         float y =
             static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
-        std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
-                  << std::endl;
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl;
 
-        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f),
-                                     projectileTex, "AK47");
+        // Create a new AK47 weapon and store it as newWeapon pointer
+        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex, "AK47");
+
+        // Set the position of the newly created weapon
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
+
+        // Adds the AK47 into the weapon list 
         weapons.push_back(newWeapon);
       }
       break;
+    
+    // Case 1: spawning SawedOff weapon
     case 1:
-
+      // Creates new SawedOff weapon at randomised positions
       for (int i = 0; i < 1; i++) {
         float x =
             static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
         float y =
             static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
-        std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
-                  << std::endl;
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl;
 
-        Weapon* newWeapon =
-            new SawedOff(&shotTexture, sf::Vector2f(50.0f, 30.0f),
-                         &projectileTex, "Sawed Off");
+        Weapon* newWeapon = new SawedOff(&shotTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex, "Sawed Off");
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
       break;
+    
+    // Case 2: spawning M16 weapon
     case 2:
       for (int i = 0; i < 1; i++) {
         float x =
@@ -167,6 +176,8 @@ void Room::generateWeapons() {
         weapons.push_back(newWeapon);
       }
       break;
+
+    // Case 3: spawning Pump weapon
     case 3:
       for (int i = 0; i < 1; i++) {
         float x =
@@ -182,7 +193,9 @@ void Room::generateWeapons() {
         weapons.push_back(newWeapon);
       }
       break;
-    case 4:  // Laser Gun
+    
+    // Case 4: spawning lasergun weapon
+    case 4:  
       for (int i = 0; i < 1; i++) {
         float x =
             static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
@@ -290,30 +303,46 @@ void Room::update() {
     itemSpawnClock.restart();
   }
 }
-void Room::Display(sf::RenderWindow& window, Collider playerCollider,
-                   Player& player, float deltaTime) {
+
+// This function handles the display of the room, the entities within and
+// oversees object interaction like pickups and collision logic
+void Room::Display(sf::RenderWindow& window, Collider playerCollider, Player& player, float deltaTime) {
+
+  // Loops through each wall of the set room 
   for (int x = 0; x < maxSize.x; x++) {
     for (int y = 0; y < maxSize.y; y++) {
+      // Draws the concurrent wall obejct stored in layout
       layout[x][y].Draw(window);
+
+      // Checks if current wall has collider
       if (layout[x][y].getColliderState() == true) {
         Collider wallCollider = layout[x][y].GetCollider();
+
+      // Activate collision logic to ensure player collides with wall
         playerCollider.checkCollision(wallCollider, 0.0f);
       }
     }
 
+    // Draw the weapons in the room
     for (Weapon* weapon : weapons) {
       weapon->Draw(window);
     }
 
+    // Draw the healthpacks in the room
     for (Heals* healthPack : healthPacks) {
       healthPack->Draw(window);
     }
+
+    // Draw the enemies in the room
     for (Enemy* enemy : enemies) {
       enemy->update(deltaTime, player);
-      enemy->draw(window);  // Draw the enemy
+      enemy->draw(window);  
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+    
+  }
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
       for (auto it = healthPacks.begin(); it != healthPacks.end();) {
         Heals* healthPack = *it;
 
@@ -331,7 +360,6 @@ void Room::Display(sf::RenderWindow& window, Collider playerCollider,
         }
       }
     }
-  }
 
   if (sf::Keyboard::isKeyPressed(
           sf::Keyboard::E)) {  // Key 'E' for weapon pickup
@@ -353,6 +381,7 @@ void Room::Display(sf::RenderWindow& window, Collider playerCollider,
       }
     }
   }
+
 
   for (size_t i = 0; i < enemies.size();) {
     Collider enemyCollider = enemies[i]->GetCollider();
