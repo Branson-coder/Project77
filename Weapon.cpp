@@ -1,8 +1,7 @@
 #include "Weapon.h"
-
-#include "Collider.h"
 #include "Projectile.h"
 
+// Base weapon class constructor
 Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate,
                float damage, const std::string& name)
     : damage(damage),
@@ -18,32 +17,44 @@ Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate,
 Weapon::~Weapon() {}
 sf::RectangleShape Weapon::getBody() const { return body; }
 
-void Weapon::setPosition(sf::Vector2f position) { body.setPosition(position); }
+// Sets position of weapon when spawning
+void Weapon::setPosition(sf::Vector2f position) { 
+  body.setPosition(position); 
+}
 
-void Weapon::updateProjectiles(float deltaTime,
-                               const sf::RenderWindow& window) {
+// Iterates over projectiles vector and updates their position with deltatime
+void Weapon::updateProjectiles(float deltaTime, const sf::RenderWindow& window) {
   (void)window;
   for (size_t i = 0; i < projectiles.size(); ++i) {
     projectiles[i].Update(deltaTime);
   }
 }
 
-void Weapon::Draw(sf::RenderWindow& window) { window.draw(body); }
-
+// Iterates over projectiles vector and draws each projectile object
 void Weapon::drawProjectiles(sf::RenderWindow& window) {
   for (size_t i = 0; i < projectiles.size(); i++) {
     projectiles[i].Draw(window);
   }
 }
 
-int Weapon::getAmmo() {
-  return currentAmmo;  // Return the current ammo count
+// Draws the weapon body
+void Weapon::Draw(sf::RenderWindow& window) { 
+  window.draw(body);
 }
 
-sf::Vector2f Weapon::getPosition() const { return body.getPosition(); }
+
+// Return the current ammo count
+int Weapon::getAmmo() {
+  return currentAmmo;  
+}
+
+// Returns weapon position
+sf::Vector2f Weapon::getPosition() const { 
+  return body.getPosition(); 
+  }
 
 
-//  method to get weapon name
+//  Returns weapon name
 std::string Weapon::getName() const {
-  return weaponName;  // Return the weapon name
+  return weaponName;  
 }
