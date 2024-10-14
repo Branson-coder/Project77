@@ -104,32 +104,34 @@ void Player::Update(float deltaTime, const sf::RenderWindow& window) {
   bool isMoving = false;
   timeDelay += deltaTime;
 
-  // player movement and facing direction
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))  // Left
-  {
-    movement.x -= speed * deltaTime;
-    row = 2;
-    facingDirection = Left;  // player is now facing left
-    isMoving = true;
-  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))  // Right
-  {
-    movement.x += speed * deltaTime;
-    row = 3;
-    facingDirection = Right;  // player is now facing right
-    isMoving = true;
-  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))  // Up
-  {
-    movement.y -= speed * deltaTime;
-    row = 1;
-    facingDirection = Up;  // player is now facing up
-    isMoving = true;
-  } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))  // Down
-  {
-    movement.y += speed * deltaTime;
-    row = 0;
-    facingDirection = Down;  // Player is now facing down
-    isMoving = true;
-  }
+ // player movement and facing direction
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {  // Left
+        movement.x -= speed * deltaTime;
+        row = 2;
+        facingDirection = Left;  // player is now facing left
+        isMoving = true;
+    }
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {  // Right
+        movement.x += speed * deltaTime;
+        row = 3;
+        facingDirection = Right;  // player is now facing right
+        isMoving = true;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {  // Up
+        movement.y -= speed * deltaTime;
+        row = 1;
+        facingDirection = Up;  // player is now facing up
+        isMoving = true;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {  // Down
+        movement.y += speed * deltaTime;
+        row = 0;
+        facingDirection = Down;  // player is now facing down
+        isMoving = true;
+    }
 
   // move and animate the player according to isMoving boolean
   if (isMoving) {
