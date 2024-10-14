@@ -35,6 +35,10 @@ Room::~Room(){
             delete enemy; // Free memory for each enemy
         }
         enemies.clear();
+  for (Weapon* weapon : weapons) {
+            delete weapon; // Free memory for each weapon
+        }
+        weapons.clear();
 }
 
 

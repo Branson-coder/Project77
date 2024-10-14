@@ -17,7 +17,17 @@ Projectile::Projectile(sf::Texture* texture, sf::Vector2f startPosition, sf::Vec
     
     velocity = direction * speed;
 }
+sf::Vector2f Projectile::getSize(){
+    return body.getSize();
+}
 
+sf::Vector2f Projectile::getPosition(){
+    return body.getPosition();
+}
+
+float Projectile::getRotation(){
+    return body.getRotation();
+}
 void Projectile::Update(float deltaTime)
 {
     // Move the projectile based on velocity and deltaTime

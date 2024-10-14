@@ -14,6 +14,9 @@ public:
     bool isOffScreen(const sf::RenderWindow& window);
 
     int getLifetime() { return lifetime; }
+    sf::Vector2f getSize();
+    sf::Vector2f getPosition();
+    float getRotation();
     void setStartDirection(sf::Vector2f startDirection);
     void setRotation(float angle);  // Function to rotate the projectile
     Collider GetCollider() {
