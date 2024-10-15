@@ -12,6 +12,8 @@ public:
 
     // override the effect function in items class
     void effect() override;
+
+    ~Heals() override;
 };
 
 

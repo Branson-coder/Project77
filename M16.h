@@ -3,10 +3,14 @@
 
 #include "AssaultRifle.h"
 
+// Base class for M16
 class M16 : public AssaultRifle {
 public:
-    M16(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, const std::string& name);
 
+    // Constructor 
+    M16(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex);
+
+    // Overrides the fire function
     void fire(sf::Vector2f direction, sf::Vector2f startPosition) override;
     
 };

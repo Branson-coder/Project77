@@ -23,7 +23,6 @@ public:
     virtual float getDamage() const = 0;
 
     
-    sf::RectangleShape getBody() const;
 
     // Function to draw the weapon
     void Draw(sf::RenderWindow& window);

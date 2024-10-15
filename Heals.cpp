@@ -16,3 +16,5 @@ void Heals::effect() {
     std::cout << "Healed by 20" << std::endl;
 }
 
+Heals::~Heals() {}
+
