@@ -6,7 +6,7 @@
 
 // Constructor for AssaultRifle
 AssaultRifle::AssaultRifle(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, const std::string& name)
-    : Weapon(texture, size, 0.1f, 20.0f, name), burstFireRounds(3)  
+    : Weapon(texture, size, 20.0f, name), burstFireRounds(3)  
 {
     projectileTexture = projectileTex;  
     maxAmmo = 120;  

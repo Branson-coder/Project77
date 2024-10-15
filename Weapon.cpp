@@ -4,7 +4,7 @@
 #include "Projectile.h"
 
 // Base weapon class constructor
-Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate,
+Weapon::Weapon(sf::Texture* texture, sf::Vector2f size,
                float damage, const std::string& name)
     : damage(damage),
       maxAmmo(30), // arbitrary number

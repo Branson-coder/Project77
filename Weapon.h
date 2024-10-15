@@ -13,7 +13,7 @@
 class Weapon {
  public:
   // Contstructor for a weapon object
-  Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate, float damage,
+  Weapon(sf::Texture* texture, sf::Vector2f size, float damage,
          const std::string& name);
   virtual ~Weapon();
 
@@ -53,7 +53,6 @@ class Weapon {
 
  protected:
   float damage;
-  float fireRate;
   int maxAmmo;
   int currentAmmo;
   sf::RectangleShape body;
