@@ -2,7 +2,7 @@
 CXX = g++
 
 # flags for the compiler
-CXXFLAGS = -std=c++17 -Wall -Wextra
+CXXFLAGS = -std=c++17 
 # flags required for sfml library compilation
 LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 

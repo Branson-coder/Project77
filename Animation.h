@@ -12,7 +12,7 @@ class Animation
         sf::Vector2u imageCount;
         sf::Vector2u currentImage;
 
-        //controls which iamge is displayed according to the 'virtual' time that has passed
+        //controls which image is displayed according to the 'virtual' time that has passed
         float totalTime;
         float switchTime;
 
