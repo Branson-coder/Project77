@@ -8,7 +8,7 @@ Pump::Pump(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex)
 {
     knockback = 7; // Knockback power equates to 7 bullets  
     damage = 4.0f; // Accesses damage variable  
-    maxAmmo = 120;         
+    maxAmmo = 120; 
     currentAmmo = maxAmmo;
 }
 
@@ -19,14 +19,14 @@ void Pump::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
 
         //Iterates over knockback value to increase enemy knockback but with only three visual projectiles
         for (int i = 0; i < knockback; ++i) {
-
+        
         Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction, 800.0f);  
         newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
         projectiles.push_back(newProjectile);
 
         // Creates another projectile which is slightly offset to simulate shotgun spread
         sf::Vector2f slightlyOffsetDirection = direction + sf::Vector2f(0.1f, 0.1f); 
-
+    
 
         float magnitude = sqrt(slightlyOffsetDirection.x * slightlyOffsetDirection.x + slightlyOffsetDirection.y * slightlyOffsetDirection.y);
         if (magnitude != 0) {
@@ -53,7 +53,7 @@ void Pump::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
         
 
         
-        // Uses 10 ammo after every fire
+        // Takes away 10 after every fire
         currentAmmo -= 10;
         
     } else {

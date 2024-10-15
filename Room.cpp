@@ -472,7 +472,7 @@ void Room::spawnFastEnemies() {
               << std::endl;  // Debug output
 
     Enemy* newEnemy =
-        new FastEnemy(&fastEnemyTexture, sf::Vector2u(3, 4), 0.2f);
+        new FastEnemy(&fastEnemyTexture, sf::Vector2u(3, 4));
     newEnemy->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
     enemies.push_back(newEnemy);
   }
@@ -496,7 +496,7 @@ void Room::spawnTankyEnemies() {
               << std::endl;  // Debug output
 
     Enemy* newEnemy =
-        new TankyEnemy(&tankyEnemyTexture, sf::Vector2u(3, 4), 0.2f);
+        new TankyEnemy(&tankyEnemyTexture, sf::Vector2u(3, 4));
     newEnemy->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
     enemies.push_back(newEnemy);
   }
@@ -520,7 +520,7 @@ void Room::spawnNormalEnemies() {
               << std::endl;  // Debug output
 
     Enemy* newEnemy =
-        new NormalEnemy(&normalEnemyTexture, sf::Vector2u(6, 4), 0.2f);
+        new NormalEnemy(&normalEnemyTexture, sf::Vector2u(6, 4));
     newEnemy->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
     enemies.push_back(newEnemy);
   }

@@ -11,8 +11,7 @@
 #include "SawedOff.h"
 #include "Pump.h"
 
-// This unit tests checks weapon damage and 
-//if the correct damage value is returned for the corresponding weapon
+ //g++ -o WeaponTest WeaponDamageTest.cpp Weapon.cpp AssaultRifle.cpp AK47.cpp Projectile.cpp M16.cpp LaserGun.cpp Pump.cpp SawedOff.cpp Shotgun.cpp -lsfml-graphics -lsfml-window -lsfml-system
 
 void testM16Damage() {
     static sf::Texture akTexture;

@@ -7,7 +7,7 @@
 #include "SawedOff.h"
 #include "Pump.h"
 
-// g++ -o FireTest WeaponFireTest.cpp Weapon.cpp AssaultRifle.cpp AK47.cpp Projectile.cpp -lsfml-graphics -lsfml-window -lsfml-system
+// g++ -o FireTest WeaponFireTest.cpp Weapon.cpp AssaultRifle.cpp AK47.cpp M16.cpp Shotgun.cpp Pump.cpp Projectile.cpp -lsfml-graphics -lsfml-window -lsfml-system
 
 void testAK47Fire() {
     sf::Texture projectileTexture;
@@ -127,7 +127,7 @@ void testPumpFire() {
 
     // Assert that the correct projectiles were created and pushed into the vector
     const std::vector<Projectile>& projectiles = pump.getProjectiles();
-    assert(projectiles.size() == 21);  // Should create 3 projectiles
+    assert(projectiles.size() == 21);  // Should create 21 projectiles
     
     const float tolerance = 0.01f;
 

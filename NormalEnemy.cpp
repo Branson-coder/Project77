@@ -3,8 +3,8 @@
 #include "NormalEnemy.h"
 #include <cmath>
 
-NormalEnemy::NormalEnemy(sf::Texture* texture, sf::Vector2u imageCount,
-                         float switchTime)
+NormalEnemy::NormalEnemy(sf::Texture* texture, sf::Vector2u imageCount
+                         )
     : Enemy(texture, imageCount, 2.0f, 150.0f, 2.0f) {
   body.setSize(sf::Vector2f(75.0f, 75.0f)); 
   body.setTexture(texture);                  

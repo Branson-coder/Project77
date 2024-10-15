@@ -7,7 +7,7 @@
 //constructor for enemy class
 Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime,
              float health, float speed)
-    : animation(texture, imageCount, switchTime), health(health), speed(speed) {
+    : animation(texture, imageCount, switchTime), speed(speed), health(health) {
         //set variables
   body.setOrigin(body.getSize() / 2.0f);
   body.setTexture(texture);
@@ -15,7 +15,10 @@ Enemy::Enemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime,
   
 }
 //nothing in this update class as it will be modified in the derived classes
-void Enemy::update(float deltaTime, const Player& player) {}
+void Enemy::update(float deltaTime, const Player& player) {
+  (void)deltaTime;
+  (void)player;
+}
 
 //draws the enemy in the window
 void Enemy::draw(sf::RenderWindow& window) { window.draw(body); }

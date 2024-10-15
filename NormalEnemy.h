@@ -7,7 +7,7 @@ class NormalEnemy : public Enemy
 {
 
     public:
-    NormalEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime); 
+    NormalEnemy(sf::Texture* texture, sf::Vector2u imageCount); 
 
     void update(float deltaTime, const Player& player) override;
     

@@ -1,3 +1,6 @@
+// This is the base class for the Assaultrifle weapons and contains methods such as
+// fire implementation specific to the gun 
+
 #include "AssaultRifle.h"
 #include <cmath>
 
@@ -10,11 +13,11 @@ AssaultRifle::AssaultRifle(sf::Texture* texture, sf::Vector2f size, sf::Texture 
     currentAmmo = maxAmmo;
 }
 
-// Basic Fire method implementation for the AssaultRifle guns
+// Basic fire implementation framework and will change for derived weapons
 void AssaultRifle::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
     sf::Vector2f projectileSize(50.0f, 50.0f);
     if (currentAmmo >= burstFireRounds) {
-
+        
         // Shoots a burst of projectiles with specific values for each weapon
         for (int i = 0; i < burstFireRounds; ++i) {
             Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction, 700.0f);  
@@ -29,7 +32,7 @@ void AssaultRifle::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
     }
 }
 
-// Get damage implementation
+// Get damage implementation from derived guns
 float AssaultRifle::getDamage() const {
     return damage;
 }

@@ -4,8 +4,8 @@
 // Constructor for base Shotgun class
 Shotgun::Shotgun(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex, const std::string& name)
     : Weapon(texture, size, 0.1f, 20.0f, name), 
-    knockback(3)
-{
+    knockback(3) 
+{   
     projectileTexture = *projectileTex;  
     maxAmmo = 90;  
     currentAmmo = maxAmmo;

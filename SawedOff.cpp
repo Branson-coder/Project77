@@ -18,7 +18,9 @@ void SawedOff::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
 
         // Iterates over each value to create knockback but visually only creates three projectiles 
         for (int i = 0; i < knockback; ++i) {
-            Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction, 800.0f);  
+            Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction, 800.0f);
+
+            // Sets the rotation of the projectile visual  
             newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
             projectiles.push_back(newProjectile);
         
@@ -30,6 +32,8 @@ void SawedOff::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
         }
 
         Projectile projectile2(&projectileTexture, startPosition, projectileSize, slightlyOffsetDirection, 800.0f);  
+
+        // Sets the rotation of the projectile visual 
         projectile2.setRotation(atan2(slightlyOffsetDirection.y, slightlyOffsetDirection.x) * 180 / 3.14159265);  
         projectiles.push_back(projectile2);
 

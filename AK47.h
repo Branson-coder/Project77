@@ -3,7 +3,7 @@
 
 #include "AssaultRifle.h"
 
-// Base class for AK47 weapon and inherits from AssaultRifle
+// Base class definition for AK47 weapon and inherits from AssaultRifle
 class AK47 : public AssaultRifle {
 public:
 

@@ -8,7 +8,7 @@ class FastEnemy : public Enemy
 {
 public:
     //constructor
-    FastEnemy(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);
+    FastEnemy(sf::Texture* texture, sf::Vector2u imageCount);
 
     //update function which has been overridden from enemy
     void update(float deltaTime, const Player& player) override;

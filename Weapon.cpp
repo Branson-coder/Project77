@@ -1,3 +1,5 @@
+// This is the base class for all weapons inside the game and contains methods that will be
+// inherited and altered specifically for corresponding types of weapons in derived classes
 #include "Weapon.h"
 #include "Projectile.h"
 
@@ -5,7 +7,6 @@
 Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate,
                float damage, const std::string& name)
     : damage(damage),
-      fireRate(fireRate),
       maxAmmo(30), // arbitrary number
       currentAmmo(maxAmmo),
       weaponName(name) {
@@ -23,7 +24,9 @@ void Weapon::setPosition(sf::Vector2f position) {
 
 // Iterates over projectiles vector and updates their position with deltatime
 void Weapon::updateProjectiles(float deltaTime, const sf::RenderWindow& window) {
-  (void)window; // originally going to be a d
+  (void)window; 
+
+  // Iterates over each projectile object and updates them according to deltaTime
   for (size_t i = 0; i < projectiles.size(); ++i) {
     projectiles[i].Update(deltaTime);
   }
@@ -31,6 +34,8 @@ void Weapon::updateProjectiles(float deltaTime, const sf::RenderWindow& window) 
 
 // Iterates over projectiles vector and draws each projectile object
 void Weapon::drawProjectiles(sf::RenderWindow& window) {
+
+  // Iterates over the projectile objects and draws each 
   for (size_t i = 0; i < projectiles.size(); i++) {
     projectiles[i].Draw(window);
   }

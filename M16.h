@@ -3,7 +3,7 @@
 
 #include "AssaultRifle.h"
 
-// Base class for M16
+// Base class definition for M16 class
 class M16 : public AssaultRifle {
 public:
 

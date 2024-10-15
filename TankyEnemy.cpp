@@ -4,8 +4,8 @@
 
 #include <cmath>
 
-TankyEnemy::TankyEnemy(sf::Texture* texture, sf::Vector2u imageCount,
-                       float switchTime)
+TankyEnemy::TankyEnemy(sf::Texture* texture, sf::Vector2u imageCount
+                       )
     : Enemy(texture, imageCount, 2.0f, 200.0f, 2.0f) {
   body.setSize(sf::Vector2f(100.0f, 100.0f));
   body.setTexture(texture);
