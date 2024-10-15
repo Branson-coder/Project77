@@ -49,6 +49,7 @@ public:
     void setHealth(float health);
     int getHealthPotionCount();
     void gameOver();
+    void setPosition(const sf::Vector2f& position) { body.setPosition(position);}
     
 private:
     enum Direction { Up, Down, Left, Right };

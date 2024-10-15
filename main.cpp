@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "GameOverMenu.h"
+#include "GameState.h"
 #include "HUD.h"
 #include "Menu.h"
 #include "Player.h"
@@ -30,9 +31,11 @@ int main() {
   sf::View view;           // view for the game
   float deltaTime = 0.0f;  // virtual time used for loop
   sf::Clock clock;         // clock to track time
+  GameState gameState;     // gamestate intialisation
 
   // loop that runs the program
   bool running = true;
+  bool isPaused = false;  // flag to check if game is paused
   while (running) {
     // the main menu window
     sf::RenderWindow menuWindow(sf::VideoMode(1920, 1080), "Main Menu");
@@ -115,7 +118,55 @@ int main() {
                                                // key is pressed
                           std::cout << "Returning to main menu...\n";
                         }
-                      }
+
+                        if (evnt.key.code == sf::Keyboard::P) {
+                          // Toggle pause state
+                          if (!isPaused) {
+                            std::cout << "Game paused." << std::endl;
+                            gameState.setScore(player.getScore());
+                            gameState.setPlayerX(player.GetPosition().x);
+                            gameState.setPlayerY(player.GetPosition().y);
+                            gameState.setPlayerHealth(player.getHealth());
+                            gameState.setDeltaTime(deltaTime);
+                            gameState.saveGame(gameState);  // Save game state
+                            isPaused = true;
+
+                            gameState.showPauseMenu(
+                                gameWindow);  // Pause menu display
+                            continue;  // Skip the rest of the game loop while
+                                       // pause
+
+                          } else {
+                            std::cout << "Game unpaused." << std::endl;
+                            gameState.loadGame(gameState);  // Load game state
+                            player.setPosition(
+                                sf::Vector2f(gameState.getPlayerX(),
+                                             gameState.getPlayerY()));
+                            deltaTime = gameState.getDeltaTime();
+                            isPaused = false;
+                          }
+                        }
+                      } if (evnt.key.code == sf::Keyboard::P) {
+        if (isPaused) {
+            std::cout << "Game unpaused." << std::endl;
+            gameState.loadGame(gameState);  // Load game state
+            player.setPosition(
+                sf::Vector2f(gameState.getPlayerX(),
+                             gameState.getPlayerY()));
+            deltaTime = gameState.getDeltaTime();
+            isPaused = false; // Unpause the game
+        } else {
+            std::cout << "Game paused." << std::endl;
+            gameState.setScore(player.getScore());
+            gameState.setPlayerX(player.GetPosition().x);
+            gameState.setPlayerY(player.GetPosition().y);
+            gameState.setPlayerHealth(player.getHealth());
+            gameState.setDeltaTime(deltaTime);
+            gameState.saveGame(gameState);  // Save game state
+            isPaused = true;  // Pause the game
+            gameState.showPauseMenu(gameWindow);  // Display pause menu
+        }
+    }
                       if (evnt.type == sf::Event::KeyPressed) {
                         if (evnt.key.code == sf::Keyboard::Space) {
                           player.shoot();  // if space is pressed, player shoots
@@ -127,30 +178,31 @@ int main() {
                         }
                       }
                     }
+                    if (!isPaused) {
+                      player.Update(
+                          deltaTime,
+                          gameWindow);  // update the player during the game
+                      Collider playerCollider =
+                          player.GetCollider();  // collider for the player
+                      view.setCenter(
+                          gameWindow.getSize().x / 2.75f,
+                          gameWindow.getSize().y / 2.2f);  // center the view
 
-                    player.Update(
-                        deltaTime,
-                        gameWindow);  // update the player during the game
-                    Collider playerCollider =
-                        player.GetCollider();  // collider for the player
-                    view.setCenter(
-                        gameWindow.getSize().x / 2.75f,
-                        gameWindow.getSize().y / 2.2f);  // centre the view
+                      gameWindow.clear(
+                          sf::Color::Black);  // background for game window is
+                                              // black
+                      gameWindow.setView(view);
+                      room.update();  // update the room status
+                      room.Display(gameWindow, playerCollider, player,
+                                   deltaTime);  // display room elements
+                      player.Draw(gameWindow);  // draw player model in game
 
-                    gameWindow.clear(sf::Color::Black);  // background for game
-                                                         // window is black
-                    gameWindow.setView(view);
-                    room.update();  // update the room status
-                    room.Display(gameWindow, playerCollider, player,
-                                 deltaTime);  // display room elements
-                    player.Draw(gameWindow);  // draw player model in game
-
-                    // update and draw the HUD
-                    hud.update();
-                    hud.draw(gameWindow);
-                    // display the game
-                    gameWindow.display();
-
+                      // update and draw the HUD
+                      hud.update();
+                      hud.draw(gameWindow);
+                      // display the game
+                      gameWindow.display();
+                    }
                     // when player loses and health reaches 0
                     if (player.getHealth() <= 0) {
                       // game over screen
