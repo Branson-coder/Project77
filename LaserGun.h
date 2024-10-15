@@ -3,11 +3,15 @@
 
 #include "AssaultRifle.h"
 
+// Base class for the laser gun
 class LaserGun : public AssaultRifle {
-public:
-    LaserGun(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, const std::string& name);
+ public:
+  // Constructor
+  LaserGun(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex,
+           const std::string& name);
 
-    void fire(sf::Vector2f direction, sf::Vector2f startPosition) override;
+  // Override the fire function
+  void fire(sf::Vector2f direction, sf::Vector2f startPosition) override;
 };
 
 #endif

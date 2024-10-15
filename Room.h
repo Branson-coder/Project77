@@ -4,19 +4,18 @@
 #include <vector>
 
 #include "AK47.h"
-#include "M16.h"
-#include "Ammo.h"
 #include "FastEnemy.h"
 #include "Heals.h"
 #include "Item.h"
+#include "LaserGun.h"
+#include "M16.h"
 #include "NormalEnemy.h"
 #include "Player.h"
-#include "SawedOff.h"
 #include "Pump.h"
+#include "SawedOff.h"
 #include "TankyEnemy.h"
 #include "Wall.h"
 #include "Weapon.h"
-#include "LaserGun.h"
 using namespace std;
 
 class Room {
@@ -45,10 +44,7 @@ class Room {
   std::vector<Heals*> healthPacks;
   sf::Clock enemySpawnClock;  // Clock to track enemy spawn timing
   sf::Time spawnInterval;     // Time interval for spawn
-  sf::Clock itemSpawnClock; //time interval for item spawn timing
-  
-
-
+  sf::Clock itemSpawnClock;   // time interval for item spawn timing
 };
 
 #endif
