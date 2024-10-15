@@ -2,10 +2,13 @@
 #define PUMP_H
 #include "Shotgun.h"
 
+// Base class for the pump weapon
 class Pump : public Shotgun {
 public:
-    Pump(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex, const std::string& name);
+    // Constructor
+    Pump(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex);
 
+    // Override the fire function
     void fire(sf::Vector2f direction, sf::Vector2f startPosition) override;
 };
 

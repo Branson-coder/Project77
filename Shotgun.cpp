@@ -1,32 +1,37 @@
 #include "Shotgun.h"
 #include <cmath>
 
-// Constructor
+// Constructor for base Shotgun class
 Shotgun::Shotgun(sf::Texture* texture, sf::Vector2f size, sf::Texture* projectileTex, const std::string& name)
-    : Weapon(texture, size, 0.1f, 20.0f, name), push(3), takeOff(10)
+    : Weapon(texture, size, 0.1f, 20.0f, name), 
+    knockback(3)
 {
     projectileTexture = *projectileTex;  
     maxAmmo = 90;  
     currentAmmo = maxAmmo;
 }
 
-// Fire method implementation
+// Basic fire implementation for a Shotgun
 void Shotgun::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
     sf::Vector2f projectileSize(50.0f, 50.0f);
-    if (currentAmmo >= push) {
-        for (int i = 0; i < push; ++i) {
+
+    // Iterates over knockback value to simulate a knockback effect
+    if (currentAmmo >= knockback) {
+        for (int i = 0; i < knockback; ++i) {
             Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction, 700.0f);  
             newProjectile.setRotation(atan2(direction.y, direction.x) * 180 / 3.14159265);  
             projectiles.push_back(newProjectile);
+
+            // Will create no more than three projectiles here 
         }
-        currentAmmo -= takeOff;
+        currentAmmo -= 10; // arbitrary value
         
     } else {
         std::cout << "Not enough ammo to fire burst." << std::endl; // might get rid of the burst 
     }
 }
 
-// Get damage implementation
+// Overrides and gets damage implementation for shotgun weapons
 float Shotgun::getDamage() const {
     return damage;
 }

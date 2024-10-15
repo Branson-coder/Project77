@@ -6,7 +6,7 @@ Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate,
                float damage, const std::string& name)
     : damage(damage),
       fireRate(fireRate),
-      maxAmmo(30),
+      maxAmmo(30), // arbitrary number
       currentAmmo(maxAmmo),
       weaponName(name) {
   body.setSize(size);
@@ -15,7 +15,6 @@ Weapon::Weapon(sf::Texture* texture, sf::Vector2f size, float fireRate,
 }
 
 Weapon::~Weapon() {}
-sf::RectangleShape Weapon::getBody() const { return body; }
 
 // Sets position of weapon when spawning
 void Weapon::setPosition(sf::Vector2f position) { 
@@ -24,7 +23,7 @@ void Weapon::setPosition(sf::Vector2f position) {
 
 // Iterates over projectiles vector and updates their position with deltatime
 void Weapon::updateProjectiles(float deltaTime, const sf::RenderWindow& window) {
-  (void)window;
+  (void)window; // originally going to be a d
   for (size_t i = 0; i < projectiles.size(); ++i) {
     projectiles[i].Update(deltaTime);
   }

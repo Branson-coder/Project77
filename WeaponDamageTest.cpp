@@ -11,7 +11,8 @@
 #include "SawedOff.h"
 #include "Pump.h"
 
-
+// This unit tests checks weapon damage and 
+//if the correct damage value is returned for the corresponding weapon
 
 void testM16Damage() {
     static sf::Texture akTexture;
@@ -33,7 +34,7 @@ void testM16Damage() {
     }
     projectileTexLoaded = true;
   }
-    M16 M16(&akTexture, sf::Vector2f(70.0f, 70.0f), projectileTexture, "AK47");
+    M16 M16(&akTexture, sf::Vector2f(70.0f, 70.0f), projectileTexture);
 
     assert(M16.getDamage() == 16.0f); // Check damage value
     std::cout << "M16 damage test passed!" << std::endl;
@@ -59,7 +60,7 @@ void testAK47Damage() {
     }
     projectileTexLoaded = true;
   }
-    AK47 ak47(&akTexture, sf::Vector2f(70.0f, 70.0f), projectileTexture, "AK47");
+    AK47 ak47(&akTexture, sf::Vector2f(70.0f, 70.0f), projectileTexture);
 
     assert(ak47.getDamage() == 25.0f); // Check damage value
     std::cout << "AK47 damage test passed!" << std::endl;
@@ -106,7 +107,7 @@ void testSawedOffDamage(){
   static sf::Texture projectileTexture;
   projectileTexture.loadFromFile("Projectile.png");
 
- SawedOff sawedoff(&SawedOffTexture, sf::Vector2f(70.0f, 70.0f), &projectileTexture, "LaserGun");
+ SawedOff sawedoff(&SawedOffTexture, sf::Vector2f(70.0f, 70.0f), &projectileTexture);
 
     assert(sawedoff.getDamage() == 5.0f); // Check damage value
     std::cout << "SawedOff damage test passed!" << std::endl;
@@ -127,7 +128,7 @@ void testPumpDamage(){
   static sf::Texture projectileTexture;
   projectileTexture.loadFromFile("Projectile.png");
 
-  Pump pump(&pumpTexture, sf::Vector2f(70.0f, 70.0f), &projectileTexture, "LaserGun");
+  Pump pump(&pumpTexture, sf::Vector2f(70.0f, 70.0f), &projectileTexture);
 
     assert(pump.getDamage() == 4.0f); // Check damage value
     std::cout << "Pump damage test passed!" << std::endl;

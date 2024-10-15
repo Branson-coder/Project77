@@ -1,19 +1,22 @@
 #include "AK47.h"
 #include <cmath>
 
-// Constructor
-AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex, const std::string& name)
+// Constructor for the AK47 
+AK47::AK47(sf::Texture* texture, sf::Vector2f size, sf::Texture projectileTex)
     : AssaultRifle(texture, size, projectileTex, "AK47")
 {
-    burstFireRounds = 2; 
-    damage = 25.0f;              
+    burstFireRounds = 2;    // Changed the value to shoot out 2 projectiles per shot
+    damage = 25.0f;         // Accesses damage variable       
     maxAmmo = 120;         
     currentAmmo = maxAmmo;
 }
 
+// Fire logic with the burstFireRounds of AK47
 void AK47::fire(sf::Vector2f direction, sf::Vector2f startPosition) {
     sf::Vector2f projectileSize(70.0f, 70.0f);
     if (currentAmmo > 0) {
+
+        //Will 
         for (int i = 0; i < burstFireRounds; i++) {
         
             Projectile newProjectile(&projectileTexture, startPosition, projectileSize, direction,  800.0f);  

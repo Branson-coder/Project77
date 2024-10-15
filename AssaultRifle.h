@@ -17,7 +17,7 @@ public:
     float getDamage() const override;
 
 protected:
-    int burstFireRounds;  
+    int burstFireRounds;  // For burst fire in AssaultRifle weapons
 };
 
 #endif

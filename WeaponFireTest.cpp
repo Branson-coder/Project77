@@ -16,7 +16,7 @@ void testAK47Fire() {
     sf::Texture akTexture;
     akTexture.loadFromFile("AK47.png");
 
-    AK47 ak47(&akTexture, sf::Vector2f(50.0f, 50.0f), projectileTexture, "AK47");
+    AK47 ak47(&akTexture, sf::Vector2f(50.0f, 50.0f), projectileTexture);
 
     // Initialise a  specific direction from a starting position
     sf::Vector2f direction(1.0f, 0.0f); 
@@ -46,7 +46,7 @@ void testM16Fire() {
     sf::Texture M16Texture;
     M16Texture.loadFromFile("M16.png");
 
-    M16 m16(&M16Texture, sf::Vector2f(50.0f, 50.0f), projectileTexture, "M16");
+    M16 m16(&M16Texture, sf::Vector2f(50.0f, 50.0f), projectileTexture);
 
     // Fire in a specific direction from a starting position
     sf::Vector2f direction(1.0f, 0.0f);  
@@ -115,7 +115,7 @@ void testPumpFire() {
     sf::Texture pumpTexture;
     pumpTexture.loadFromFile("Pump.png");
 
-    Pump pump(&pumpTexture, sf::Vector2f(50.0f, 50.0f), &projectileTexture, "Pump");
+    Pump pump(&pumpTexture, sf::Vector2f(50.0f, 50.0f), &projectileTexture);
 
 
     // Initialise a specific direction from a starting position

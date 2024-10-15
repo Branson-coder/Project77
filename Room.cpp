@@ -138,7 +138,7 @@ void Room::generateWeapons() {
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl;
 
         // Create a new AK47 weapon and store it as newWeapon pointer
-        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex, "AK47");
+        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex);
 
         // Set the position of the newly created weapon
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
@@ -158,7 +158,7 @@ void Room::generateWeapons() {
             static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl;
 
-        Weapon* newWeapon = new SawedOff(&shotTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex, "Sawed Off");
+        Weapon* newWeapon = new SawedOff(&shotTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -175,7 +175,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon = new M16(&M16Texture, sf::Vector2f(50.0f, 30.0f),
-                                    projectileTex, "M16");
+                                    projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -192,7 +192,7 @@ void Room::generateWeapons() {
                   << std::endl;
 
         Weapon* newWeapon = new Pump(&pumpTexture, sf::Vector2f(70.0f, 50.0f),
-                                     &projectileTex, "Pump");
+                                     &projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -309,7 +309,7 @@ void Room::update() {
 }
 
 // This function handles the display of the room, the entities within and
-// oversees object interaction like pickups and collision logic
+// also controls object interaction like pickups and collision logic
 void Room::Display(sf::RenderWindow& window, Collider playerCollider, Player& player, float deltaTime) {
 
   // Loops through each wall of the set room 
