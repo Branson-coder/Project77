@@ -17,7 +17,7 @@ public:
     // Constructor should take the type as a const reference
     Item(sf::Vector2f position, const std::string& type); // Use const reference for string
 
-    ~Item(); // Destructor
+    virtual ~Item(); // Destructor
 
     void collect(); // Marks the item as collected
 

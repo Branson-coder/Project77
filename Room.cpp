@@ -26,21 +26,23 @@ Room::Room(sf::Texture* texture, sf::Vector2f position)
       }
     }
   }
-
-  
 }
 
-Room::~Room(){
+Room::~Room() {
   for (Enemy* enemy : enemies) {
-            delete enemy; // Free memory for each enemy
-        }
-        enemies.clear();
+    delete enemy;  // Free memory for each enemy
+  }
+  enemies.clear();
   for (Weapon* weapon : weapons) {
-            delete weapon; // Free memory for each weapon
-        }
-        weapons.clear();
-}
+    delete weapon;  // Free memory for each weapon
+  }
+  weapons.clear();
 
+  for (Heals* healthPack : healthPacks) {
+    delete healthPack;  // Free memory for each healthpack
+  }
+  healthPacks.clear();
+}
 
 void Room::generateWeapons() {
   static sf::Texture akTexture;
@@ -122,32 +124,34 @@ void Room::generateWeapons() {
   }
 
   // Randomises randomWeaponType value between numbers 0-4
-  int randomWeaponType =
-      rand() % 5;  
+  int randomWeaponType = rand() % 5;
 
-  // Switch statement to select a random weapon with corresponding randomWeaponType number
+  // Switch statement to select a random weapon with corresponding
+  // randomWeaponType number
   switch (randomWeaponType) {
     case 0:
-    // The loop iterates once to provide a scope for the variables
-    // Randomises position of weapon within maxSize bounds and not on the edge
+      // The loop iterates once to provide a scope for the variables
+      // Randomises position of weapon within maxSize bounds and not on the edge
       for (int i = 0; i < 1; i++) {
         float x =
             static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
         float y =
             static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
-        std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl;
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
+                  << std::endl;
 
         // Create a new AK47 weapon and store it as newWeapon pointer
-        Weapon* newWeapon = new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex);
+        Weapon* newWeapon =
+            new AK47(&akTexture, sf::Vector2f(50.0f, 30.0f), projectileTex);
 
         // Set the position of the newly created weapon
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
 
-        // Adds the AK47 into the weapon list 
+        // Adds the AK47 into the weapon list
         weapons.push_back(newWeapon);
       }
       break;
-    
+
     // Case 1: spawning SawedOff weapon
     case 1:
       // Creates new SawedOff weapon at randomised positions
@@ -156,14 +160,16 @@ void Room::generateWeapons() {
             static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
         float y =
             static_cast<float>(rand() % static_cast<int>(maxSize.y - 2) + 1);
-        std::cout << "Spawning weapon at: (" << x << ", " << y << ")" << std::endl;
+        std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
+                  << std::endl;
 
-        Weapon* newWeapon = new SawedOff(&shotTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex);
+        Weapon* newWeapon = new SawedOff(
+            &shotTexture, sf::Vector2f(50.0f, 30.0f), &projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
       break;
-    
+
     // Case 2: spawning M16 weapon
     case 2:
       for (int i = 0; i < 1; i++) {
@@ -174,8 +180,8 @@ void Room::generateWeapons() {
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
                   << std::endl;
 
-        Weapon* newWeapon = new M16(&M16Texture, sf::Vector2f(50.0f, 30.0f),
-                                    projectileTex);
+        Weapon* newWeapon =
+            new M16(&M16Texture, sf::Vector2f(50.0f, 30.0f), projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
@@ -191,15 +197,15 @@ void Room::generateWeapons() {
         std::cout << "Spawning weapon at: (" << x << ", " << y << ")"
                   << std::endl;
 
-        Weapon* newWeapon = new Pump(&pumpTexture, sf::Vector2f(70.0f, 50.0f),
-                                     &projectileTex);
+        Weapon* newWeapon =
+            new Pump(&pumpTexture, sf::Vector2f(70.0f, 50.0f), &projectileTex);
         newWeapon->setPosition(sf::Vector2f(100.0f * x, 100.0f * y));
         weapons.push_back(newWeapon);
       }
       break;
-    
+
     // Case 4: spawning lasergun weapon
-    case 4:  
+    case 4:
       for (int i = 0; i < 1; i++) {
         float x =
             static_cast<float>(rand() % static_cast<int>(maxSize.x - 2) + 1);
@@ -310,9 +316,9 @@ void Room::update() {
 
 // This function handles the display of the room, the entities within and
 // also controls object interaction like pickups and collision logic
-void Room::Display(sf::RenderWindow& window, Collider playerCollider, Player& player, float deltaTime) {
-
-  // Loops through each wall of the set room 
+void Room::Display(sf::RenderWindow& window, Collider playerCollider,
+                   Player& player, float deltaTime) {
+  // Loops through each wall of the set room
   for (int x = 0; x < maxSize.x; x++) {
     for (int y = 0; y < maxSize.y; y++) {
       // Draws the concurrent wall obejct stored in layout
@@ -322,7 +328,7 @@ void Room::Display(sf::RenderWindow& window, Collider playerCollider, Player& pl
       if (layout[x][y].getColliderState() == true) {
         Collider wallCollider = layout[x][y].GetCollider();
 
-      // Activate collision logic to ensure player collides with wall
+        // Activate collision logic to ensure player collides with wall
         playerCollider.checkCollision(wallCollider, 0.0f);
       }
     }
@@ -340,30 +346,28 @@ void Room::Display(sf::RenderWindow& window, Collider playerCollider, Player& pl
     // Draw the enemies in the room
     for (Enemy* enemy : enemies) {
       enemy->update(deltaTime, player);
-      enemy->draw(window);  
+      enemy->draw(window);
     }
-
-    
   }
 
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
-      for (auto it = healthPacks.begin(); it != healthPacks.end();) {
-        Heals* healthPack = *it;
+    for (auto it = healthPacks.begin(); it != healthPacks.end();) {
+      Heals* healthPack = *it;
 
-        if (player.GetPosition().x < healthPack->getPosition().x + 50 &&
-            player.GetPosition().x > healthPack->getPosition().x - 50 &&
-            player.GetPosition().y < healthPack->getPosition().y + 50 &&
-            player.GetPosition().y > healthPack->getPosition().y - 50) {
-          if (player.equipHeal(healthPack)) {
-            it = healthPacks.erase(it);
-          } else {
-            break;
-          }
+      if (player.GetPosition().x < healthPack->getPosition().x + 50 &&
+          player.GetPosition().x > healthPack->getPosition().x - 50 &&
+          player.GetPosition().y < healthPack->getPosition().y + 50 &&
+          player.GetPosition().y > healthPack->getPosition().y - 50) {
+        if (player.equipHeal(healthPack)) {
+          it = healthPacks.erase(it);
         } else {
-          ++it;
+          break;
         }
+      } else {
+        ++it;
       }
     }
+  }
 
   if (sf::Keyboard::isKeyPressed(
           sf::Keyboard::E)) {  // Key 'E' for weapon pickup
@@ -385,7 +389,6 @@ void Room::Display(sf::RenderWindow& window, Collider playerCollider, Player& pl
       }
     }
   }
-
 
   for (size_t i = 0; i < enemies.size();) {
     Collider enemyCollider = enemies[i]->GetCollider();
