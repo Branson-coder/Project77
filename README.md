@@ -1,2 +1,1 @@
-This project is about a 2D pixel shooter game created using C++ and SFML. The user will be able to control
-a 2d human who collects weapons and shoots enemies of varying difficulty.
+This projects is a dynamic 2D pixel shooter game developed with C++ and SFML. The game features an interactive player-controlled character that collects items and weapons whilst fighting enemies of varying difficulty. 
